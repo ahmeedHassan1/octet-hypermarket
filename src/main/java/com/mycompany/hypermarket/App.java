@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * JavaFX App
@@ -32,8 +34,10 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        // MarketingEmployee aa = new MarketingEmployee("username", "email", "password", "address", 123);
-        // MarketingEmployee aa1 = new MarketingEmployee("username1", "email1", "password1", "address1", 123);
+        // MarketingEmployee aa = new MarketingEmployee("username", "email", "password",
+        // "address", 123);
+        // MarketingEmployee aa1 = new MarketingEmployee("username1", "email1",
+        // "password1", "address1", 123);
         // Seller aa2 = new Seller("username2", "email2", "password2", "address2", 123);
         // Seller aa3 = new Seller("username3", "email3", "password3", "address3", 123);
         //
@@ -43,7 +47,11 @@ public class App extends Application {
         // System.out.println(line);
         // }
 
-        Admin.updateEmployeeUsername("Seller", 2, "Ahmedggggg");
+        // Admin.updateEmployeeUsername("Seller", 2, "Ahmed");
+
+        // InventoryEmployee.updateProductQuantity(1, 30);
+
+        InventoryEmployee.deleteProduct(3);
 
     }
 

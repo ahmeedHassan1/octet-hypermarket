@@ -16,15 +16,6 @@ import java.util.Scanner;
  */
 public class FileHandler {
 
-    private File file;
-    private Scanner fr;
-    private FileWriter fw;
-    private String filePath = "";
-
-    public FileHandler(String filePath) {
-        this.filePath = filePath;
-    }
-
     public static File createFile(String path) {
         File file = new File(path);
 

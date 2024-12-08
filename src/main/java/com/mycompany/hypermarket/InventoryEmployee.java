@@ -4,7 +4,15 @@
  */
 package com.mycompany.hypermarket;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -15,8 +23,8 @@ public class InventoryEmployee extends Person {
     private static final Counter counter = new Counter(FilePaths.inventoryEmployeeCounterPath);
 
     public InventoryEmployee() {
-//        counter++;
-//        setId("InventoryEmployee_" + counter);
+        // counter++;
+        // setId("InventoryEmployee_" + counter);
     }
 
     public InventoryEmployee(String username, String email, String password, String address, int number) {
@@ -25,27 +33,227 @@ public class InventoryEmployee extends Person {
         setId("InventoryEmployee_" + counter.getValue());
 
         File file = FileHandler.createFile(FilePaths.inventoryEmployeePath);
-        FileHandler.writeToFile(file, getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
+        FileHandler.writeToFile(file,
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
     }
 
-//    public void addProduct() {
-//    }
-//
-//    public void deleteProduct() {
-//    }
-//
-//    public void updateProduct() {
-//    }
-//
-//    public Product[] listProducts() {
-//    }
-//
-//    public Product searchProduct() {
-//    }
-//
-//    public String quantityOfProductNotification() {
-//    }
-//
-//    public String expiryDateOfProductNotification() {
-//    }
+    public static void addProduct(String name, int quantity, double price, Date expiryDate) {
+        new Product(name, quantity, price, expiryDate);
+    }
+
+    public static void deleteProduct(int id) {
+        String filePath = FilePaths.productsPath;
+        if (filePath == null) {
+            System.out.println("Invalid.");
+            return;
+        }
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = "Product" + "_" + id;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error deleting product: " + e.getMessage());
+            return;
+        }
+
+        // Replace the original file with the updated file
+        if (found) {
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete original file.");
+                return;
+            }
+
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename temporary file.");
+            } else {
+                System.out.println("Product deleted successfully.");
+            }
+        } else {
+            System.out.println("Product with ID " + idString + " not found.");
+            tempFile.delete(); // Clean up the temporary file if no updates were made
+        }
+    }
+
+    public static void updateProductPrice(int idToUpdate, double newPrice) {
+        String filePath = FilePaths.productsPath;
+        if (filePath == null) {
+            System.out.println("Invalid.");
+            return;
+        }
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = "Product" + "_" + idToUpdate;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                    details[3] = newPrice + "";
+                    String updatedLine = String.join(",", details);
+                    writer.write(updatedLine);
+                    writer.newLine();
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error updating product: " + e.getMessage());
+            return;
+        }
+
+        // Replace the original file with the updated file
+        if (found) {
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete original file.");
+                return;
+            }
+
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename temporary file.");
+            } else {
+                System.out.println("Price updated successfully.");
+            }
+        } else {
+            System.out.println("Product with ID " + idString + " not found.");
+            tempFile.delete(); // Clean up the temporary file if no updates were made
+        }
+    }
+
+    public static void updateProductQuantity(int idToUpdate, int newQuantity) {
+        String filePath = FilePaths.productsPath;
+        if (filePath == null) {
+            System.out.println("Invalid.");
+            return;
+        }
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = "Product" + "_" + idToUpdate;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                    details[2] = newQuantity + "";
+                    String updatedLine = String.join(",", details);
+                    writer.write(updatedLine);
+                    writer.newLine();
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error updating product: " + e.getMessage());
+            return;
+        }
+
+        // Replace the original file with the updated file
+        if (found) {
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete original file.");
+                return;
+            }
+
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename temporary file.");
+            } else {
+                System.out.println("Quantity updated successfully.");
+            }
+        } else {
+            System.out.println("Product with ID " + idString + " not found.");
+            tempFile.delete(); // Clean up the temporary file if no updates were made
+        }
+    }
+
+    public static String[] listProducts() {
+        return FileHandler.readFile(FilePaths.productsPath);
+    }
+
+    public static String searchProduct(int id) {
+        String[] products = FileHandler.readFile(FilePaths.productsPath);
+
+        for (String line : products) {
+            String[] details = line.split(",");
+
+            if (details.length > 0 && details[0].startsWith("Product_")) {
+                int extractedId = Integer.parseInt(details[0].substring(8));
+
+                if (extractedId == id) {
+                    return line;
+                }
+            }
+        }
+
+        // If no match is found
+        return "Product with ID Product_" + id + " not found.";
+
+    }
+
+    public static String quantityOfProductNotification(int id) {
+        String product = searchProduct(id);
+        String[] details = product.split(",");
+        int quantity = Integer.parseInt(details[2]);
+        if (quantity < 10) {
+            return "Product with ID Product_" + id + " has a quantity less than 10.";
+        }
+        return "Product with ID Product_" + id + " has a quantity of " + quantity + ".";
+    }
+
+    public static String expiryDateOfProductNotification(int id) {
+        String product = searchProduct(id);
+
+        try {
+            String[] details = product.split(",");
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+            Date expiryDate = dateFormat.parse(details[4]); // Parse the expiry date
+            Date currentDate = new Date();
+
+            // Compare expiry date with the current date
+            if (expiryDate.before(currentDate)) {
+                return "Product with ID Product_" + id + " has expired.";
+            } else {
+                return "Product with ID Product_" + id + " has not expired.";
+            }
+        } catch (ParseException e) {
+            return "Error parsing expiry date for Product_" + id + ": " + e.getMessage();
+        }
+    }
 }

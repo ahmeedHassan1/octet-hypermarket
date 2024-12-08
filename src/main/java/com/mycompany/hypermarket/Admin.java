@@ -20,8 +20,8 @@ public class Admin extends Person {
     private static final Counter counter = new Counter(FilePaths.adminCounterPath);
 
     public Admin() {
-//        counter++;
-//        setId("Admin_" + counter);
+        // counter++;
+        // setId("Admin_" + counter);
 
     }
 
@@ -31,7 +31,8 @@ public class Admin extends Person {
         setId("Admin_" + counter.getValue());
 
         File file = FileHandler.createFile(FilePaths.adminPath);
-        FileHandler.writeToFile(file, getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
+        FileHandler.writeToFile(file,
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
 
     }
 
@@ -51,7 +52,8 @@ public class Admin extends Person {
         boolean found = false;
         String idString = employeeType + "_" + idToUpdate;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile)); BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 
             String currentLine;
 
@@ -109,10 +111,57 @@ public class Admin extends Person {
     public void addMarketingEmployee(String username, String email, String password, String address, int number) {
         new MarketingEmployee(username, email, password, address, number);
     }
-//
-//    public void deleteMarketingEmployee() {
-//    }
-//
+
+    public void deleteMarketingEmployee(int id) {
+        String filePath = FilePaths.marketingEmployeePath;
+        if (filePath == null) {
+            System.out.println("Invalid.");
+            return;
+        }
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = "MarketingEmployee" + "_" + id;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error deleting employee: " + e.getMessage());
+            return;
+        }
+
+        // Replace the original file with the updated file
+        if (found) {
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete original file.");
+                return;
+            }
+
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename temporary file.");
+            } else {
+                System.out.println("Employee deleted successfully.");
+            }
+        } else {
+            System.out.println("Employee with ID " + idString + " not found.");
+            tempFile.delete(); // Clean up the temporary file if no updates were made
+        }
+    }
 
     public String searchMarketingEmployee(int id) {
         String[] marketingEmployees = FileHandler.readFile(FilePaths.marketingEmployeePath);
@@ -136,10 +185,58 @@ public class Admin extends Person {
     public void addInventoryEmployee(String username, String email, String password, String address, int number) {
         new InventoryEmployee(username, email, password, address, number);
     }
-//
-//    public void deleteInventoryEmployee() {
-//    }
-//
+    
+    public void deleteInventoryEmployee(int id) {
+        String filePath = FilePaths.inventoryEmployeePath;
+        if (filePath == null) {
+            System.out.println("Invalid.");
+            return;
+        }
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = "InventoryEmployee" + "_" + id;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error deleting employee: " + e.getMessage());
+            return;
+        }
+
+        // Replace the original file with the updated file
+        if (found) {
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete original file.");
+                return;
+            }
+
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename temporary file.");
+            } else {
+                System.out.println("Employee deleted successfully.");
+            }
+        } else {
+            System.out.println("Employee with ID " + idString + " not found.");
+            tempFile.delete(); // Clean up the temporary file if no updates were made
+        }
+    }
+    
 
     public String searchInventoryEmployee(int id) {
         String[] inventoryEmployees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
@@ -163,10 +260,58 @@ public class Admin extends Person {
     public void addSellerEmployee(String username, String email, String password, String address, int number) {
         new Seller(username, email, password, address, number);
     }
-//
-//    public void deleteSellerEmployee() {
-//    }
-//
+    
+    public void deleteSellerEmployee(int id) {
+        String filePath = FilePaths.sellerEmployeePath;
+        if (filePath == null) {
+            System.out.println("Invalid.");
+            return;
+        }
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = "Seller" + "_" + id;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error deleting employee: " + e.getMessage());
+            return;
+        }
+
+        // Replace the original file with the updated file
+        if (found) {
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete original file.");
+                return;
+            }
+
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename temporary file.");
+            } else {
+                System.out.println("Employee deleted successfully.");
+            }
+        } else {
+            System.out.println("Employee with ID " + idString + " not found.");
+            tempFile.delete(); // Clean up the temporary file if no updates were made
+        }
+    }
+    
 
     public String searchSellerEmployee(int id) {
         String[] sellerEmployees = FileHandler.readFile(FilePaths.sellerEmployeePath);

@@ -4,6 +4,7 @@
  */
 package com.mycompany.hypermarket;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -12,8 +13,8 @@ import java.util.Date;
  */
 public class Product {
 
+    private static final Counter counter = new Counter(FilePaths.productsCounterPath);
     private String id;
-    private static int counter;
     private String name;
     private int quantity;
     private double price;
@@ -25,8 +26,12 @@ public class Product {
         this.quantity = quantity;
         this.price = price;
         this.expiryDate = expiryDate;
-        counter++;
-        this.setId("Product_" + counter);
+
+        counter.increment();
+        setId("Product_" + counter.getValue());
+
+        File file = FileHandler.createFile(FilePaths.productsPath);
+        FileHandler.writeToFile(file, getId() + "," + name + "," + quantity + "," + price + "," + expiryDate);
     }
 
     public String getId() {
@@ -35,14 +40,6 @@ public class Product {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public static int getCounter() {
-        return counter;
-    }
-
-    public static void setCounter(int counter) {
-        Product.counter = counter;
     }
 
     public String getName() {
