@@ -9,7 +9,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  *
@@ -40,10 +39,20 @@ public class Admin extends Person {
     // }
 
     public static void updateEmployeeUsername(String employeeType, int idToUpdate, String newUsername) {
-        String filePath = getFilePathByEmployeeType(employeeType);
-        if (filePath == null) {
-            System.out.println("Invalid employee type specified.");
-            return;
+        String filePath;
+        switch (employeeType.toLowerCase()) {
+            case "marketingemployee":
+                filePath = FilePaths.marketingEmployeePath;
+                break;
+            case "seller":
+                filePath = FilePaths.sellerEmployeePath;
+                break;
+            case "inventoryemployee":
+                filePath = FilePaths.inventoryEmployeePath;
+                break;
+            default:
+                System.out.println("Invalid employee type specified.");
+                return;
         }
 
         File inputFile = new File(filePath);
@@ -71,40 +80,16 @@ public class Admin extends Person {
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error updating employee: " + e.getMessage());
             return;
         }
 
-        // Replace the original file with the updated file
         if (found) {
-            if (!inputFile.delete()) {
-                System.out.println("Could not delete original file.");
-                return;
-            }
-
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Could not rename temporary file.");
-            } else {
-                System.out.println("Username updated successfully.");
-            }
+            System.out.println("Username updated successfully.");
         } else {
             System.out.println("Employee with ID " + idString + " not found.");
-            tempFile.delete(); // Clean up the temporary file if no updates were made
-        }
-    }
-
-    // Method to get the file path based on the employee type
-    private static String getFilePathByEmployeeType(String employeeType) {
-        switch (employeeType.toLowerCase()) {
-            case "marketingemployee":
-                return FilePaths.marketingEmployeePath;
-            case "seller":
-                return FilePaths.sellerEmployeePath;
-            case "inventoryemployee":
-                return FilePaths.inventoryEmployeePath;
-            default:
-                return null;
+            tempFile.delete();
         }
     }
 
@@ -140,26 +125,16 @@ public class Admin extends Person {
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error deleting employee: " + e.getMessage());
             return;
         }
 
-        // Replace the original file with the updated file
         if (found) {
-            if (!inputFile.delete()) {
-                System.out.println("Could not delete original file.");
-                return;
-            }
-
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Could not rename temporary file.");
-            } else {
-                System.out.println("Employee deleted successfully.");
-            }
+            System.out.println("Employee deleted successfully.");
         } else {
             System.out.println("Employee with ID " + idString + " not found.");
-            tempFile.delete(); // Clean up the temporary file if no updates were made
+            tempFile.delete();
         }
     }
 
@@ -178,14 +153,13 @@ public class Admin extends Person {
             }
         }
 
-        // If no match is found
         return "Marketing employee with ID MarketingEmployee_" + id + " not found.";
     }
 
     public void addInventoryEmployee(String username, String email, String password, String address, int number) {
         new InventoryEmployee(username, email, password, address, number);
     }
-    
+
     public void deleteInventoryEmployee(int id) {
         String filePath = FilePaths.inventoryEmployeePath;
         if (filePath == null) {
@@ -214,29 +188,19 @@ public class Admin extends Person {
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error deleting employee: " + e.getMessage());
             return;
         }
 
-        // Replace the original file with the updated file
         if (found) {
-            if (!inputFile.delete()) {
-                System.out.println("Could not delete original file.");
-                return;
-            }
 
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Could not rename temporary file.");
-            } else {
-                System.out.println("Employee deleted successfully.");
-            }
+            System.out.println("Employee deleted successfully.");
         } else {
             System.out.println("Employee with ID " + idString + " not found.");
-            tempFile.delete(); // Clean up the temporary file if no updates were made
+            tempFile.delete();
         }
     }
-    
 
     public String searchInventoryEmployee(int id) {
         String[] inventoryEmployees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
@@ -253,14 +217,13 @@ public class Admin extends Person {
             }
         }
 
-        // If no match is found
         return "Inventory employee with ID InventoryEmployee_" + id + " not found.";
     }
 
     public void addSellerEmployee(String username, String email, String password, String address, int number) {
         new Seller(username, email, password, address, number);
     }
-    
+
     public void deleteSellerEmployee(int id) {
         String filePath = FilePaths.sellerEmployeePath;
         if (filePath == null) {
@@ -289,29 +252,18 @@ public class Admin extends Person {
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error deleting employee: " + e.getMessage());
             return;
         }
 
-        // Replace the original file with the updated file
         if (found) {
-            if (!inputFile.delete()) {
-                System.out.println("Could not delete original file.");
-                return;
-            }
-
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Could not rename temporary file.");
-            } else {
-                System.out.println("Employee deleted successfully.");
-            }
+            System.out.println("Employee deleted successfully.");
         } else {
             System.out.println("Employee with ID " + idString + " not found.");
-            tempFile.delete(); // Clean up the temporary file if no updates were made
+            tempFile.delete();
         }
     }
-    
 
     public String searchSellerEmployee(int id) {
         String[] sellerEmployees = FileHandler.readFile(FilePaths.sellerEmployeePath);
@@ -328,7 +280,6 @@ public class Admin extends Person {
             }
         }
 
-        // If no match is found
         return "Seller employee with ID Seller_" + id + " not found.";
     }
 

@@ -9,7 +9,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,26 +68,17 @@ public class InventoryEmployee extends Person {
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error deleting product: " + e.getMessage());
             return;
         }
 
-        // Replace the original file with the updated file
         if (found) {
-            if (!inputFile.delete()) {
-                System.out.println("Could not delete original file.");
-                return;
-            }
+            System.out.println("Product deleted successfully.");
 
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Could not rename temporary file.");
-            } else {
-                System.out.println("Product deleted successfully.");
-            }
         } else {
             System.out.println("Product with ID " + idString + " not found.");
-            tempFile.delete(); // Clean up the temporary file if no updates were made
+            tempFile.delete();
         }
     }
 
@@ -124,26 +114,17 @@ public class InventoryEmployee extends Person {
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error updating product: " + e.getMessage());
             return;
         }
 
-        // Replace the original file with the updated file
         if (found) {
-            if (!inputFile.delete()) {
-                System.out.println("Could not delete original file.");
-                return;
-            }
+            System.out.println("Price updated successfully.");
 
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Could not rename temporary file.");
-            } else {
-                System.out.println("Price updated successfully.");
-            }
         } else {
             System.out.println("Product with ID " + idString + " not found.");
-            tempFile.delete(); // Clean up the temporary file if no updates were made
+            tempFile.delete();
         }
     }
 
@@ -179,26 +160,18 @@ public class InventoryEmployee extends Person {
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error updating product: " + e.getMessage());
             return;
         }
 
-        // Replace the original file with the updated file
         if (found) {
-            if (!inputFile.delete()) {
-                System.out.println("Could not delete original file.");
-                return;
-            }
 
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Could not rename temporary file.");
-            } else {
-                System.out.println("Quantity updated successfully.");
-            }
+            System.out.println("Quantity updated successfully.");
+
         } else {
             System.out.println("Product with ID " + idString + " not found.");
-            tempFile.delete(); // Clean up the temporary file if no updates were made
+            tempFile.delete();
         }
     }
 
@@ -221,7 +194,6 @@ public class InventoryEmployee extends Person {
             }
         }
 
-        // If no match is found
         return "Product with ID Product_" + id + " not found.";
 
     }
@@ -243,10 +215,9 @@ public class InventoryEmployee extends Person {
             String[] details = product.split(",");
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
-            Date expiryDate = dateFormat.parse(details[4]); // Parse the expiry date
+            Date expiryDate = dateFormat.parse(details[4]);
             Date currentDate = new Date();
 
-            // Compare expiry date with the current date
             if (expiryDate.before(currentDate)) {
                 return "Product with ID Product_" + id + " has expired.";
             } else {

@@ -38,8 +38,8 @@ public class App extends Application {
         // "address", 123);
         // MarketingEmployee aa1 = new MarketingEmployee("username1", "email1",
         // "password1", "address1", 123);
-        // Seller aa2 = new Seller("username2", "email2", "password2", "address2", 123);
-        // Seller aa3 = new Seller("username3", "email3", "password3", "address3", 123);
+        // Seller aa2 = new Seller("username1", "email1", "password1", "address1", 123);
+        // Seller aa3 = new Seller("username2", "email2", "password2", "address2", 123);
         //
         // String[] str = Admin.listAllEmployees();
         //
@@ -51,7 +51,7 @@ public class App extends Application {
 
         // InventoryEmployee.updateProductQuantity(1, 30);
 
-        InventoryEmployee.deleteProduct(3);
+        // InventoryEmployee.deleteProduct(3);
 
     }
 

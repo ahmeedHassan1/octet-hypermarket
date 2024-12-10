@@ -4,10 +4,10 @@
  */
 package com.mycompany.hypermarket;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -23,7 +23,7 @@ public class FileHandler {
             if (file.createNewFile()) {
                 System.out.println("File is Created");
             } else {
-                System.out.println("File is already exist");
+                System.out.println("File already exists");
             }
 
         } catch (Exception ex) {
@@ -33,12 +33,11 @@ public class FileHandler {
     }
 
     public static void writeToFile(File file, String content) {
-        try {
-            FileWriter fw = new FileWriter(file, true);
-            fw.append(content + "\n");
-            fw.close();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
+            bw.write(content);
+            bw.newLine(); 
+        } catch (Exception ex) {
+            System.out.println("Error writing to file: " + ex.getMessage());
         }
     }
 
@@ -46,15 +45,15 @@ public class FileHandler {
         try {
             File file = createFile(filePath);
             Scanner fr = new Scanner(file);
-            StringBuilder lines = new StringBuilder(); // Use StringBuilder for better performance
+            StringBuilder lines = new StringBuilder(); 
             while (fr.hasNextLine()) {
                 lines.append(fr.nextLine()).append("\n");
             }
-            fr.close(); // Always close the Scanner
-            return lines.toString().split("\n"); // Split the content into an array of lines
+            fr.close(); 
+            return lines.toString().split("\n"); 
         } catch (FileNotFoundException ex) {
             System.out.println("File not found: " + ex.getMessage());
-            return new String[0]; // Return an empty array if the file is not found
+            return new String[0]; 
         }
     }
 
