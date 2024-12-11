@@ -36,22 +36,21 @@ public class Admin extends Person {
     }
 
     // public static void setEmployeeType(String id, String newEmployeeType) {
-    //     if (id.startsWith(newEmployeeType)) {
-    //         System.out.println("Employee is already of type " + newEmployeeType);
-    //         return;
-    //     }
+    // if (id.startsWith(newEmployeeType)) {
+    // System.out.println("Employee is already of type " + newEmployeeType);
+    // return;
+    // }
 
+    // if (id.startsWith("Seller")) {
 
-    //     if (id.startsWith("Seller")) {
-            
-    //     } else if (id.startsWith("MarketingEmployee")) {
-    //         filePath = FilePaths.marketingEmployeePath;
-    //     } else if (id.startsWith("InventoryEmployee")) {
-    //         filePath = FilePaths.inventoryEmployeePath;
-    //     } else {
-    //         System.out.println("Invalid employee ID.");
-    //         return;
-    //     }
+    // } else if (id.startsWith("MarketingEmployee")) {
+    // filePath = FilePaths.marketingEmployeePath;
+    // } else if (id.startsWith("InventoryEmployee")) {
+    // filePath = FilePaths.inventoryEmployeePath;
+    // } else {
+    // System.out.println("Invalid employee ID.");
+    // return;
+    // }
 
     // }
 
@@ -103,6 +102,8 @@ public class Admin extends Person {
         }
 
         if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
             System.out.println("Username updated successfully.");
         } else {
             System.out.println("Employee with ID " + idString + " not found.");
@@ -148,6 +149,8 @@ public class Admin extends Person {
         }
 
         if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
             System.out.println("Employee deleted successfully.");
         } else {
             System.out.println("Employee with ID " + idString + " not found.");
@@ -211,7 +214,8 @@ public class Admin extends Person {
         }
 
         if (found) {
-
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
             System.out.println("Employee deleted successfully.");
         } else {
             System.out.println("Employee with ID " + idString + " not found.");
@@ -275,6 +279,8 @@ public class Admin extends Person {
         }
 
         if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
             System.out.println("Employee deleted successfully.");
         } else {
             System.out.println("Employee with ID " + idString + " not found.");

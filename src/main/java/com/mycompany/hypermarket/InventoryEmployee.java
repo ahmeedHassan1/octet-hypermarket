@@ -74,6 +74,8 @@ public class InventoryEmployee extends Person {
         }
 
         if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
             System.out.println("Product deleted successfully.");
 
         } else {
