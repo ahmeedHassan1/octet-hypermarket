@@ -31,7 +31,8 @@ public class Product {
         setId("Product_" + counter.getValue());
 
         File file = FileHandler.createFile(FilePaths.productsPath);
-        FileHandler.writeToFile(file, getId() + "," + name + "," + quantity + "," + price + "," + expiryDate);
+        FileHandler.writeToFile(file,
+                getId() + "," + name + "," + quantity + "," + price + "," + expiryDate + "," + offer);
     }
 
     public String getId() {

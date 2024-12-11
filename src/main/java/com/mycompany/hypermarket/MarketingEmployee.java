@@ -4,7 +4,11 @@
  */
 package com.mycompany.hypermarket;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 /**
  *
@@ -15,8 +19,8 @@ public class MarketingEmployee extends Person {
     private static final Counter counter = new Counter(FilePaths.marketingEmployeeCounterPath);
 
     public MarketingEmployee() {
-//        counter++;
-//        setId("MarketingEmployee_" + counter);
+        // counter++;
+        // setId("MarketingEmployee_" + counter);
     }
 
     public MarketingEmployee(String username, String email, String password, String address, int number) {
@@ -25,12 +29,62 @@ public class MarketingEmployee extends Person {
         setId("MarketingEmployee_" + counter.getValue());
 
         File file = FileHandler.createFile(FilePaths.marketingEmployeePath);
-        FileHandler.writeToFile(file, getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
+        FileHandler.writeToFile(file,
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
     }
 
-//    public Report createReport() {
-//    }
-//
-//    public void createOffer() {
-//    }
+    public void createReport(String content) {
+        new Report(getId(), content);
+    }
+
+    public static void createOffer(int idToUpdate, double discount) {
+        String filePath = FilePaths.productsPath;
+        if (filePath == null) {
+            System.out.println("Invalid.");
+            return;
+        }
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = "Product" + "_" + idToUpdate;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                    details[5] = discount + "";
+                    System.out.println(details[5]);
+                    String updatedLine = String.join(",", details);
+                    System.out.println(updatedLine);
+
+                    writer.write(updatedLine);
+                    writer.newLine();
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating product: " + e.getMessage());
+            return;
+        }
+
+        if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+            System.out.println("Discount updated successfully.");
+
+        } else {
+            System.out.println("Product with ID " + idString + " not found.");
+            tempFile.delete();
+        }
+    }
 }

@@ -35,7 +35,24 @@ public class Admin extends Person {
 
     }
 
-    // public void setEmployeeType() {
+    // public static void setEmployeeType(String id, String newEmployeeType) {
+    //     if (id.startsWith(newEmployeeType)) {
+    //         System.out.println("Employee is already of type " + newEmployeeType);
+    //         return;
+    //     }
+
+
+    //     if (id.startsWith("Seller")) {
+            
+    //     } else if (id.startsWith("MarketingEmployee")) {
+    //         filePath = FilePaths.marketingEmployeePath;
+    //     } else if (id.startsWith("InventoryEmployee")) {
+    //         filePath = FilePaths.inventoryEmployeePath;
+    //     } else {
+    //         System.out.println("Invalid employee ID.");
+    //         return;
+    //     }
+
     // }
 
     public static void updateEmployeeUsername(String employeeType, int idToUpdate, String newUsername) {
@@ -138,7 +155,7 @@ public class Admin extends Person {
         }
     }
 
-    public String searchMarketingEmployee(int id) {
+    public static String searchMarketingEmployee(int id) {
         String[] marketingEmployees = FileHandler.readFile(FilePaths.marketingEmployeePath);
 
         for (String line : marketingEmployees) {
@@ -202,7 +219,7 @@ public class Admin extends Person {
         }
     }
 
-    public String searchInventoryEmployee(int id) {
+    public static String searchInventoryEmployee(int id) {
         String[] inventoryEmployees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
 
         for (String line : inventoryEmployees) {
@@ -265,7 +282,7 @@ public class Admin extends Person {
         }
     }
 
-    public String searchSellerEmployee(int id) {
+    public static String searchSellerEmployee(int id) {
         String[] sellerEmployees = FileHandler.readFile(FilePaths.sellerEmployeePath);
 
         for (String line : sellerEmployees) {

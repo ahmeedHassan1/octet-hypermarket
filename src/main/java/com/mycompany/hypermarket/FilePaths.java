@@ -24,4 +24,10 @@ public class FilePaths {
 
     public static final String productsCounterPath = "C:/Users/ahmed/OneDrive/Documents/NetBeansProjects/hypermarket/src/main/java/com/mycompany/hypermarket/data/productsCounter.txt";
     public static final String productsPath = "C:/Users/ahmed/OneDrive/Documents/NetBeansProjects/hypermarket/src/main/java/com/mycompany/hypermarket/data/products.txt";
+
+    public static final String reportCounterPath = "C:/Users/ahmed/OneDrive/Documents/NetBeansProjects/hypermarket/src/main/java/com/mycompany/hypermarket/data/reportCounter.txt";
+    public static final String reportPath = "C:/Users/ahmed/OneDrive/Documents/NetBeansProjects/hypermarket/src/main/java/com/mycompany/hypermarket/data/reports.txt";
+
+    public static final String orderCounterPath = "C:/Users/ahmed/OneDrive/Documents/NetBeansProjects/hypermarket/src/main/java/com/mycompany/hypermarket/data/orderCounter.txt";
+    public static final String orderPath = "C:/Users/ahmed/OneDrive/Documents/NetBeansProjects/hypermarket/src/main/java/com/mycompany/hypermarket/data/orders.txt";
 }

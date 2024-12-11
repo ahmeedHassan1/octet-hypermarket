@@ -15,8 +15,8 @@ public class Seller extends Person {
     private static final Counter counter = new Counter(FilePaths.sellerEmployeeCounterPath);
 
     public Seller() {
-//        counter++;
-//        setId("Seller_" + counter);
+        // counter++;
+        // setId("Seller_" + counter);
     }
 
     public Seller(String username, String email, String password, String address, int number) {
@@ -25,18 +25,35 @@ public class Seller extends Person {
         setId("Seller_" + counter.getValue());
 
         File file = FileHandler.createFile(FilePaths.sellerEmployeePath);
-        FileHandler.writeToFile(file, getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
+        FileHandler.writeToFile(file,
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
     }
 
-//    public Product[] listProducts() {
-//    }
-//
-//    public Product searchProduct() {
-//    }
-//
-//    public void createOrder() {
-//    }
-//
-//    public Order cancelOrder() {
-//    }
+    public String[] listProducts() {
+        return FileHandler.readFile(FilePaths.productsPath);
+    }
+
+    public String searchProduct(int id) {
+        String[] products = FileHandler.readFile(FilePaths.productsPath);
+
+        for (String line : products) {
+            String[] details = line.split(",");
+
+            if (details.length > 0 && details[0].startsWith("Product_")) {
+                int extractedId = Integer.parseInt(details[0].substring(8));
+
+                if (extractedId == id) {
+                    return line;
+                }
+            }
+        }
+
+        return "Product with ID Product_" + id + " not found.";
+    }
+
+    // public void createOrder() {
+    // }
+
+    // public Order cancelOrder() {
+    // }
 }

@@ -1,3 +1,2 @@
-Product_1,test,30,30.0,Sun Dec 08 21:08:40 EET 2026
-Product_2,test,0,0.0,Sun Dec 08 21:12:04 EET 2024
-Product_4,test,0,0.0,Sun Dec 08 21:12:04 EET 2024
+Product_1,name,10,0.0,Tue Dec 10 20:18:25 EET 2024,5.0
+Product_2,name1,2,2.0,Tue Dec 10 20:18:25 EET 2024,0.0

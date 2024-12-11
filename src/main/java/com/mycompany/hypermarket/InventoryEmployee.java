@@ -120,6 +120,8 @@ public class InventoryEmployee extends Person {
         }
 
         if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
             System.out.println("Price updated successfully.");
 
         } else {
@@ -166,7 +168,8 @@ public class InventoryEmployee extends Person {
         }
 
         if (found) {
-
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
             System.out.println("Quantity updated successfully.");
 
         } else {

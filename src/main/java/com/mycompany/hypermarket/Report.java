@@ -4,6 +4,7 @@
  */
 package com.mycompany.hypermarket;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -11,19 +12,23 @@ import java.util.Date;
  * @author ahmed
  */
 public class Report {
-
+    private static final Counter counter = new Counter(FilePaths.reportCounterPath);
     private String id;
-    private static int counter;
     private Date createdAt;
-    private Person owner;
+    private String owner;
     private String content;
 
-    public Report(Date createdAt, Person owner, String content) {
+    public Report(String owner, String content) {
+
         this.createdAt = new Date();
         this.owner = owner;
         this.content = content;
-        counter++;
-        this.setId("Report_" + counter);
+        counter.increment();
+        this.setId("Report_" + counter.getValue());
+
+        File file = FileHandler.createFile(FilePaths.reportPath);
+        FileHandler.writeToFile(file,
+                getId() + "," + owner + "," + content + "," + createdAt);
     }
 
     public String getId() {
@@ -38,11 +43,11 @@ public class Report {
         return createdAt;
     }
 
-    public Person getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(Person owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
