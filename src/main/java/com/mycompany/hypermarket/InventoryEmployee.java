@@ -33,7 +33,7 @@ public class InventoryEmployee extends Person {
 
         File file = FileHandler.createFile(FilePaths.inventoryEmployeePath);
         FileHandler.writeToFile(file,
-                getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
     }
 
     public static void addProduct(String name, int quantity, double price, Date expiryDate) {

@@ -28,7 +28,7 @@ public class Report {
 
         File file = FileHandler.createFile(FilePaths.reportPath);
         FileHandler.writeToFile(file,
-                getId() + "," + owner + "," + content + "," + createdAt);
+                getId() + "," + owner + "," + content + "," + createdAt, true);
     }
 
     public String getId() {

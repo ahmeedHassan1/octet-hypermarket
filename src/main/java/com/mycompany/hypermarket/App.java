@@ -59,11 +59,25 @@ public class App extends Application {
         // InventoryEmployee.addProduct("name1", 2, 2, new Date());
 
         // MarketingEmployee.createOffer(1, 5.0);
-        try {
-            new Order("1", new int[] { 1, 2 }, new int[] { 10, 20 });
-        } catch (Exception e) {
-        }
+        // try {
+        // new Order("1", new int[] { 1, 2 }, new int[] { 10, 20 });
+        // } catch (Exception e) {
+        // }
+
+        // try {
+        //     Admin.setEmployeeType("MarketingEmployee_4", "seller");
+        // } catch (Exception e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
+        // try {
+        //     Seller.createOrder("MarketingEmployee_4", new int[] { 1, 2 }, new int[] { 10, 20 });
+        // } catch (Exception e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
         // InventoryEmployee.updateProductQuantity(1, 10);
+        // Seller.cancelOrder("Order_1231");
     }
 
 }

@@ -32,7 +32,7 @@ public class Product {
 
         File file = FileHandler.createFile(FilePaths.productsPath);
         FileHandler.writeToFile(file,
-                getId() + "," + name + "," + quantity + "," + price + "," + expiryDate + "," + offer);
+                getId() + "," + name + "," + quantity + "," + price + "," + expiryDate + "," + offer, true);
     }
 
     public String getId() {

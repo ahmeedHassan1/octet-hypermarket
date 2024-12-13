@@ -31,28 +31,67 @@ public class Admin extends Person {
 
         File file = FileHandler.createFile(FilePaths.adminPath);
         FileHandler.writeToFile(file,
-                getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
 
     }
 
-    // public static void setEmployeeType(String id, String newEmployeeType) {
-    // if (id.startsWith(newEmployeeType)) {
-    // System.out.println("Employee is already of type " + newEmployeeType);
-    // return;
-    // }
+    public static void setEmployeeType(String id, String newEmployeeType) throws Exception {
+        String filePath = null;
+        if (id.startsWith("Seller_")) {
+            filePath = FilePaths.sellerEmployeePath;
+        } else if (id.startsWith("MarketingEmployee_")) {
+            filePath = FilePaths.marketingEmployeePath;
+        } else if (id.startsWith("InventoryEmployee_")) {
+            filePath = FilePaths.inventoryEmployeePath;
+        } else {
+            throw new Exception("Invalid employee ID");
+        }
 
-    // if (id.startsWith("Seller")) {
+        String[] details = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String currentLine;
+            while ((currentLine = reader.readLine()) != null) {
+                if (currentLine.startsWith(id)) {
+                    details = currentLine.split(",");
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Error updating employee type: " + e.getMessage());
+        }
 
-    // } else if (id.startsWith("MarketingEmployee")) {
-    // filePath = FilePaths.marketingEmployeePath;
-    // } else if (id.startsWith("InventoryEmployee")) {
-    // filePath = FilePaths.inventoryEmployeePath;
-    // } else {
-    // System.out.println("Invalid employee ID.");
-    // return;
-    // }
+        if (details == null) {
+            throw new Exception("Employee with ID " + id + " not found");
+        }
 
-    // }
+        String username = details[1];
+        String email = details[2];
+        String password = details[3];
+        String address = details[4];
+        int number = Integer.parseInt(details[5]);
+
+        switch (newEmployeeType.toLowerCase()) {
+            case "marketingemployee":
+                addMarketingEmployee(username, email, password, address, number);
+                break;
+            case "seller":
+                addSellerEmployee(username, email, password, address, number);
+                break;
+            case "inventoryemployee":
+                addInventoryEmployee(username, email, password, address, number);
+                break;
+            default:
+                throw new Exception("Invalid new employee type");
+        }
+
+        if (id.startsWith("Seller_")) {
+            deleteSellerEmployee(Integer.parseInt(id.substring(7)));
+        } else if (id.startsWith("MarketingEmployee_")) {
+            deleteMarketingEmployee(Integer.parseInt(id.substring(18)));
+        } else if (id.startsWith("InventoryEmployee_")) {
+            deleteInventoryEmployee(Integer.parseInt(id.substring(18)));
+        }
+    }
 
     public static void updateEmployeeUsername(String employeeType, int idToUpdate, String newUsername) {
         String filePath;
@@ -111,11 +150,12 @@ public class Admin extends Person {
         }
     }
 
-    public void addMarketingEmployee(String username, String email, String password, String address, int number) {
+    public static void addMarketingEmployee(String username, String email, String password, String address,
+            int number) {
         new MarketingEmployee(username, email, password, address, number);
     }
 
-    public void deleteMarketingEmployee(int id) {
+    public static void deleteMarketingEmployee(int id) {
         String filePath = FilePaths.marketingEmployeePath;
         if (filePath == null) {
             System.out.println("Invalid.");
@@ -176,11 +216,12 @@ public class Admin extends Person {
         return "Marketing employee with ID MarketingEmployee_" + id + " not found.";
     }
 
-    public void addInventoryEmployee(String username, String email, String password, String address, int number) {
+    public static void addInventoryEmployee(String username, String email, String password, String address,
+            int number) {
         new InventoryEmployee(username, email, password, address, number);
     }
 
-    public void deleteInventoryEmployee(int id) {
+    public static void deleteInventoryEmployee(int id) {
         String filePath = FilePaths.inventoryEmployeePath;
         if (filePath == null) {
             System.out.println("Invalid.");
@@ -241,11 +282,11 @@ public class Admin extends Person {
         return "Inventory employee with ID InventoryEmployee_" + id + " not found.";
     }
 
-    public void addSellerEmployee(String username, String email, String password, String address, int number) {
+    public static void addSellerEmployee(String username, String email, String password, String address, int number) {
         new Seller(username, email, password, address, number);
     }
 
-    public void deleteSellerEmployee(int id) {
+    public static void deleteSellerEmployee(int id) {
         String filePath = FilePaths.sellerEmployeePath;
         if (filePath == null) {
             System.out.println("Invalid.");

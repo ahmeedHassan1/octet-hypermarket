@@ -32,8 +32,8 @@ public class FileHandler {
         return file;
     }
 
-    public static void writeToFile(File file, String content) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
+    public static void writeToFile(File file, String content, boolean append) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, append))) {
             bw.write(content);
             bw.newLine(); 
         } catch (Exception ex) {

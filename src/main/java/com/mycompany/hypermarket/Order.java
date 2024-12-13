@@ -41,7 +41,7 @@ public class Order {
         }
 
         File file = FileHandler.createFile(FilePaths.orderPath);
-        FileHandler.writeToFile(file, orderDetails.toString());
+        FileHandler.writeToFile(file, orderDetails.toString(), true);
     }
 
     public String getId() {

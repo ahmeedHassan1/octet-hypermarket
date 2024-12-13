@@ -30,7 +30,7 @@ public class MarketingEmployee extends Person {
 
         File file = FileHandler.createFile(FilePaths.marketingEmployeePath);
         FileHandler.writeToFile(file,
-                getId() + "," + username + "," + email + "," + password + "," + address + "," + number);
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
     }
 
     public void createReport(String content) {
