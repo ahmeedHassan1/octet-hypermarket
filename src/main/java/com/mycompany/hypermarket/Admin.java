@@ -157,10 +157,6 @@ public class Admin extends Person {
 
     public static void deleteMarketingEmployee(int id) {
         String filePath = FilePaths.marketingEmployeePath;
-        if (filePath == null) {
-            System.out.println("Invalid.");
-            return;
-        }
 
         File inputFile = new File(filePath);
         File tempFile = new File("tempFile.txt");
@@ -223,10 +219,6 @@ public class Admin extends Person {
 
     public static void deleteInventoryEmployee(int id) {
         String filePath = FilePaths.inventoryEmployeePath;
-        if (filePath == null) {
-            System.out.println("Invalid.");
-            return;
-        }
 
         File inputFile = new File(filePath);
         File tempFile = new File("tempFile.txt");
@@ -288,10 +280,6 @@ public class Admin extends Person {
 
     public static void deleteSellerEmployee(int id) {
         String filePath = FilePaths.sellerEmployeePath;
-        if (filePath == null) {
-            System.out.println("Invalid.");
-            return;
-        }
 
         File inputFile = new File(filePath);
         File tempFile = new File("tempFile.txt");

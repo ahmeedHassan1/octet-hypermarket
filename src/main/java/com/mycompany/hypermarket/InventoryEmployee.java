@@ -42,10 +42,6 @@ public class InventoryEmployee extends Person {
 
     public static void deleteProduct(int id) {
         String filePath = FilePaths.productsPath;
-        if (filePath == null) {
-            System.out.println("Invalid.");
-            return;
-        }
 
         File inputFile = new File(filePath);
         File tempFile = new File("tempFile.txt");
@@ -86,10 +82,6 @@ public class InventoryEmployee extends Person {
 
     public static void updateProductPrice(int idToUpdate, double newPrice) {
         String filePath = FilePaths.productsPath;
-        if (filePath == null) {
-            System.out.println("Invalid.");
-            return;
-        }
 
         File inputFile = new File(filePath);
         File tempFile = new File("tempFile.txt");
@@ -134,10 +126,6 @@ public class InventoryEmployee extends Person {
 
     public static void updateProductQuantity(int idToUpdate, int newQuantity) {
         String filePath = FilePaths.productsPath;
-        if (filePath == null) {
-            System.out.println("Invalid.");
-            return;
-        }
 
         File inputFile = new File(filePath);
         File tempFile = new File("tempFile.txt");

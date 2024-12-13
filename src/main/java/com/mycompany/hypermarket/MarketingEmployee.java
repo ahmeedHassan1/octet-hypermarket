@@ -39,10 +39,6 @@ public class MarketingEmployee extends Person {
 
     public static void createOffer(int idToUpdate, double discount) {
         String filePath = FilePaths.productsPath;
-        if (filePath == null) {
-            System.out.println("Invalid.");
-            return;
-        }
 
         File inputFile = new File(filePath);
         File tempFile = new File("tempFile.txt");
