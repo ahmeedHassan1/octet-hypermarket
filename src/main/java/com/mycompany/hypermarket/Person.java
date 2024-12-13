@@ -8,7 +8,7 @@ package com.mycompany.hypermarket;
  *
  * @author ahmed
  */
-public class Person {
+public abstract class Person {
 
     private String id;
     private String username;
@@ -27,6 +27,8 @@ public class Person {
         this.address = address;
         this.number = number;
     }
+
+    abstract public String[] login(String username, String password) throws Exception;
 
     public String getId() {
         return id;

@@ -35,6 +35,20 @@ public class Admin extends Person {
 
     }
 
+    public String[] login(String email, String password) throws Exception{
+        String[] admins = FileHandler.readFile(FilePaths.adminPath);
+
+        for (String line : admins) {
+            String[] details = line.split(",");
+
+            if (details.length > 0 && details[2].equals(email) && details[3].equals(password)) {
+                return details;
+            }
+        }
+
+        throw new Exception("Invalid email or password");
+    }
+
     public static void setEmployeeType(String id, String newEmployeeType) throws Exception {
         String filePath = null;
         if (id.startsWith("Seller_")) {
@@ -335,7 +349,7 @@ public class Admin extends Person {
         return "Seller employee with ID Seller_" + id + " not found.";
     }
 
-    public String[] listAllEmployees() {
+    public static String[] listAllEmployees() {
         String[] inventoryEmployees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
         String[] marketingEmployees = FileHandler.readFile(FilePaths.marketingEmployeePath);
         String[] sellerEmployees = FileHandler.readFile(FilePaths.sellerEmployeePath);

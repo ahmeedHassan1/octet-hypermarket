@@ -36,6 +36,20 @@ public class InventoryEmployee extends Person {
                 getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
     }
 
+    public String[] login(String email, String password) throws Exception{
+        String[] employees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
+
+        for (String line : employees) {
+            String[] details = line.split(",");
+
+            if (details.length > 0 && details[2].equals(email) && details[3].equals(password)) {
+                return details;
+            }
+        }
+
+        throw new Exception("Invalid email or password.");
+    }
+
     public static void addProduct(String name, int quantity, double price, Date expiryDate) {
         new Product(name, quantity, price, expiryDate);
     }

@@ -4,3 +4,4 @@ Seller_3,username2,email2,password2,address2,123
 Seller_4,username2,email2,password2,address2,123
 Seller_5,username1,email1,password1,address1,123
 Seller_6,username2,email2,password2,address2,123
+Seller_7,Ahmed,email3,password3,address1,123

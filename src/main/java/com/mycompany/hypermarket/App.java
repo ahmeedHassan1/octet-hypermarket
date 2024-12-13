@@ -18,25 +18,29 @@ public class App extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+    public void start(Stage stage) {
+        try {
+            Parent root = FXMLLoader.load(App.class.getResource("login.fxml"));
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-        // launch();
-        // MarketingEmployee aa = new MarketingEmployee("username", "email", "password",
-        // "address", 123);
+        launch();
+
+        // new Admin("username", "email123", "password123", "address", 123);
+
+        // MarketingEmployee aa = new MarketingEmployee();
+        // try {
+        // String[] details = aa.login("memail", "mpassword");
+        // System.out.println(details[0]);
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
         // MarketingEmployee aa1 = new MarketingEmployee("username1", "email1",
         // "password1", "address1", 123);
         // aa1.createReport("content1");
@@ -65,16 +69,17 @@ public class App extends Application {
         // }
 
         // try {
-        //     Admin.setEmployeeType("MarketingEmployee_4", "seller");
+        // Admin.setEmployeeType("MarketingEmployee_4", "seller");
         // } catch (Exception e) {
-        //     // TODO Auto-generated catch block
-        //     e.printStackTrace();
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
         // }
         // try {
-        //     Seller.createOrder("MarketingEmployee_4", new int[] { 1, 2 }, new int[] { 10, 20 });
+        // Seller.createOrder("MarketingEmployee_4", new int[] { 1, 2 }, new int[] { 10,
+        // 20 });
         // } catch (Exception e) {
-        //     // TODO Auto-generated catch block
-        //     e.printStackTrace();
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
         // }
         // InventoryEmployee.updateProductQuantity(1, 10);
         // Seller.cancelOrder("Order_1231");

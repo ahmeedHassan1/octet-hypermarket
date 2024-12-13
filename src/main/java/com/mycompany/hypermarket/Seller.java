@@ -33,6 +33,20 @@ public class Seller extends Person {
                 getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
     }
 
+    public String[] login(String email, String password) throws Exception{
+        String[] employees = FileHandler.readFile(FilePaths.sellerEmployeePath);
+
+        for (String line : employees) {
+            String[] details = line.split(",");
+
+            if (details.length > 0 && details[2].equals(email) && details[3].equals(password)) {
+                return details;
+            }
+        }
+
+        throw new Exception("Invalid email or password.");
+    }
+
     public String[] listProducts() {
         return FileHandler.readFile(FilePaths.productsPath);
     }

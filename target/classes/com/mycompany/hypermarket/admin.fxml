@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hypermarket.AdminController">
+   <children>
+      <Button fx:id="listEmployees" layoutX="22.0" layoutY="415.0" mnemonicParsing="false" onAction="#listAllEmployees" text="List all employees" />
+      <MenuButton fx:id="type" layoutX="99.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Seller" />
+          <MenuItem mnemonicParsing="false" text="MarketingEmployee" />
+            <MenuItem mnemonicParsing="false" text="InventoryEmployee" />
+        </items>
+      </MenuButton>
+      <Label layoutX="25.0" layoutY="95.0" text="Type" />
+      <Button layoutX="186.0" layoutY="128.0" mnemonicParsing="false" onAction="#updateEmployeeType" text="Submit" />
+      <TextField fx:id="id" layoutX="99.0" layoutY="52.0" prefWidth="141.0" />
+      <Label layoutX="25.0" layoutY="56.0" text="Employee ID" />
+      <Label layoutX="12.0" layoutY="170.0" text="New Username" />
+      <Button layoutX="188.0" layoutY="203.0" mnemonicParsing="false" onAction="#updateEmployeeUsername" text="Submit" />
+      <Text layoutX="27.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set Employee Data" />
+      <TextField fx:id="newUsername" layoutX="99.0" layoutY="166.0" prefWidth="141.0" />
+      <MenuButton fx:id="newEmployeeType" layoutX="415.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Seller" />
+            <MenuItem mnemonicParsing="false" text="MarketingEmployee" />
+            <MenuItem mnemonicParsing="false" text="InventoryEmployee" />
+         </items>
+      </MenuButton>
+      <Label layoutX="336.0" layoutY="98.0" text="Type" />
+      <TextField fx:id="newEmployeeUsername" layoutX="415.0" layoutY="59.0" prefWidth="141.0" />
+      <Label layoutX="336.0" layoutY="63.0" text="Username" />
+      <Text layoutX="338.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Employee" />
+      <TextField fx:id="newEmployeeEmail" layoutX="415.0" layoutY="128.0" prefWidth="141.0" />
+      <Label layoutX="338.0" layoutY="132.0" text="Email" />
+      <TextField fx:id="newEmployeePassword" layoutX="415.0" layoutY="166.0" prefWidth="141.0" />
+      <Label layoutX="336.0" layoutY="170.0" text="Password" />
+      <TextField fx:id="newEmployeeAddress" layoutX="415.0" layoutY="203.0" prefWidth="141.0" />
+      <Label layoutX="336.0" layoutY="207.0" text="Address" />
+      <TextField fx:id="newEmployeeNumber" layoutX="416.0" layoutY="240.0" prefWidth="141.0" />
+      <Label layoutX="337.0" layoutY="244.0" text="Number" />
+      <Button layoutX="502.0" layoutY="277.0" mnemonicParsing="false" onAction="#addEmployee" text="Submit" />
+      <Button layoutX="255.0" layoutY="51.0" mnemonicParsing="false" onAction="#searchEmployee" text="Search" />
+      <Button layoutX="101.0" layoutY="203.0" mnemonicParsing="false" onAction="#deleteEmployee" style="-fx-background-color: #fc6d62;" text="Delete" />
+   </children>
+</AnchorPane>
