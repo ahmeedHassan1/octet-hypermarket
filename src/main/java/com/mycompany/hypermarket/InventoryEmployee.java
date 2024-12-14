@@ -22,8 +22,6 @@ public class InventoryEmployee extends Person {
     private static final Counter counter = new Counter(FilePaths.inventoryEmployeeCounterPath);
 
     public InventoryEmployee() {
-        // counter++;
-        // setId("InventoryEmployee_" + counter);
     }
 
     public InventoryEmployee(String username, String email, String password, String address, int number) {

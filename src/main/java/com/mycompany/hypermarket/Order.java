@@ -20,6 +20,9 @@ public class Order {
     private int[] products;
     private int[] quantities;
 
+    public Order() {
+    }
+
     public Order(String owner, int[] products, int[] quantities) throws Exception {
         if (products.length != quantities.length) {
             throw new Exception("Products and quantities arrays must have the same length.");
@@ -50,5 +53,17 @@ public class Order {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
     }
 }

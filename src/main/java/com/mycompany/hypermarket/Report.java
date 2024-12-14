@@ -18,6 +18,9 @@ public class Report {
     private String owner;
     private String content;
 
+    public Report() {
+    }
+
     public Report(String owner, String content) {
 
         this.createdAt = new Date();

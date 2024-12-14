@@ -19,14 +19,13 @@ public class Admin extends Person {
     private static final Counter counter = new Counter(FilePaths.adminCounterPath);
 
     public Admin() {
-        // counter++;
-        // setId("Admin_" + counter);
-
     }
 
     public Admin(String username, String email, String password, String address, int number, boolean addToFile) {
         super(username, email, password, address, number);
-        counter.increment();
+        if (addToFile) {
+            counter.increment();
+        }
         setId("Admin_" + counter.getValue());
 
         if(addToFile){

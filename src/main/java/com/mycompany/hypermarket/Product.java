@@ -21,6 +21,9 @@ public class Product {
     private double offer;
     private Date expiryDate;
 
+    public Product() {
+    }
+
     public Product(String name, int quantity, double price, Date expiryDate) {
         this.name = name;
         this.quantity = quantity;

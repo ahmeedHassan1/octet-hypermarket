@@ -16,8 +16,8 @@ import java.util.Scanner;
  */
 public class FileHandler {
 
-    public static File createFile(String path) {
-        File file = new File(path);
+    public static File createFile(String filePath) {
+        File file = new File(filePath);
 
         try {
             if (file.createNewFile()) {
@@ -55,6 +55,20 @@ public class FileHandler {
             System.out.println("File not found: " + ex.getMessage());
             return new String[0]; 
         }
+    }
+
+    public static void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.delete()) {
+            System.out.println("File deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
+    }
+
+    public static boolean searchFile(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
     }
 
 }

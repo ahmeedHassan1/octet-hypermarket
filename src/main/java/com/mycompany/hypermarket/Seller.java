@@ -19,8 +19,6 @@ public class Seller extends Person {
     private static final Counter counter = new Counter(FilePaths.sellerEmployeeCounterPath);
 
     public Seller() {
-        // counter++;
-        // setId("Seller_" + counter);
     }
 
     public Seller(String username, String email, String password, String address, int number) {

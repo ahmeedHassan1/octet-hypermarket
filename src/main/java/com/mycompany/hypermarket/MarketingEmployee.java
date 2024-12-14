@@ -19,8 +19,6 @@ public class MarketingEmployee extends Person {
     private static final Counter counter = new Counter(FilePaths.marketingEmployeeCounterPath);
 
     public MarketingEmployee() {
-        // counter++;
-        // setId("MarketingEmployee_" + counter);
     }
 
     public MarketingEmployee(String username, String email, String password, String address, int number) {
