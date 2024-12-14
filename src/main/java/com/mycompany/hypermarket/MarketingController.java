@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class MarketingController extends BaseController {
 
@@ -25,6 +26,13 @@ public class MarketingController extends BaseController {
     private TextField newMarketingEmployeeAddress;
     @FXML
     private TextField newMarketingEmployeeNumber;
+    @FXML
+    private Text salary;
+
+    public void initialize() {
+        Person person = new MarketingEmployee();
+        salary.setText("Salary: " + person.calculateSalary());
+    }
 
     public void setMarketingEmployee(MarketingEmployee marketingEmployee) {
         this.marketingEmployee = marketingEmployee;

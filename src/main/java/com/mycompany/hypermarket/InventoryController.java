@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class InventoryController extends BaseController {
 
@@ -39,6 +40,14 @@ public class InventoryController extends BaseController {
     private TextField newQuantity;
     @FXML
     private TextField newPrice;
+    @FXML
+    private Text salary;
+
+
+    public void initialize() {
+        Person person = new InventoryEmployee();
+        salary.setText("Salary: " + person.calculateSalary());
+    }
 
     public void setInventoryEmployee(InventoryEmployee inventoryEmployee) {
         this.inventoryEmployee = inventoryEmployee;

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class SellerController extends BaseController {
 
@@ -27,6 +28,13 @@ public class SellerController extends BaseController {
     private TextField productsQuantities;
     @FXML
     private TextField orderID;
+    @FXML
+    private Text salary;
+
+    public void initialize() {
+        Person person = new Seller();
+        salary.setText("Salary: " + person.calculateSalary());
+    }
 
     public void setSeller(Seller seller) {
         this.seller = seller;

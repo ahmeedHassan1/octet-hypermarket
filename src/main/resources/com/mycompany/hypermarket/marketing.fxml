@@ -31,5 +31,6 @@
       <Text layoutX="54.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Offer" />
       <TextField fx:id="discount" layoutX="133.0" layoutY="169.0" prefWidth="141.0" />
       <Label layoutX="54.0" layoutY="173.0" text="Discount" />
+      <Text fx:id="salary" layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

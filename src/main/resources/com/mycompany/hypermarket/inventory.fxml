@@ -45,5 +45,6 @@
       <Button layoutX="216.0" layoutY="137.0" mnemonicParsing="false" onAction="#searchProduct" text="Search" />
       <Button layoutX="58.0" layoutY="306.0" mnemonicParsing="false" onAction="#quantityNotification" prefHeight="25.0" prefWidth="141.0" text="Quantity Notification" />
       <Button layoutX="58.0" layoutY="343.0" mnemonicParsing="false" onAction="#expiryDateNotification" prefHeight="25.0" prefWidth="141.0" text="Expiry Notification" />
+      <Text fx:id="salary" layoutX="16.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>
