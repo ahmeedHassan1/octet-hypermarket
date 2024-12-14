@@ -24,14 +24,15 @@ public class Admin extends Person {
 
     }
 
-    public Admin(String username, String email, String password, String address, int number) {
+    public Admin(String username, String email, String password, String address, int number, boolean addToFile) {
         super(username, email, password, address, number);
         counter.increment();
         setId("Admin_" + counter.getValue());
 
+        if(addToFile){
         File file = FileHandler.createFile(FilePaths.adminPath);
         FileHandler.writeToFile(file,
-                getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);}
 
     }
 
@@ -49,7 +50,7 @@ public class Admin extends Person {
         throw new Exception("Invalid email or password");
     }
 
-    public static void setEmployeeType(String id, String newEmployeeType) throws Exception {
+    public void setEmployeeType(String id, String newEmployeeType) throws Exception {
         String filePath = null;
         if (id.startsWith("Seller_")) {
             filePath = FilePaths.sellerEmployeePath;
@@ -107,7 +108,7 @@ public class Admin extends Person {
         }
     }
 
-    public static void updateEmployeeUsername(String employeeType, int idToUpdate, String newUsername) {
+    public void updateEmployeeUsername(String employeeType, int idToUpdate, String newUsername) {
         String filePath;
         switch (employeeType.toLowerCase()) {
             case "marketingemployee":
@@ -164,12 +165,12 @@ public class Admin extends Person {
         }
     }
 
-    public static void addMarketingEmployee(String username, String email, String password, String address,
+    public void addMarketingEmployee(String username, String email, String password, String address,
             int number) {
         new MarketingEmployee(username, email, password, address, number);
     }
 
-    public static void deleteMarketingEmployee(int id) {
+    public void deleteMarketingEmployee(int id) {
         String filePath = FilePaths.marketingEmployeePath;
 
         File inputFile = new File(filePath);
@@ -208,7 +209,7 @@ public class Admin extends Person {
         }
     }
 
-    public static String searchMarketingEmployee(int id) {
+    public String searchMarketingEmployee(int id) {
         String[] marketingEmployees = FileHandler.readFile(FilePaths.marketingEmployeePath);
 
         for (String line : marketingEmployees) {
@@ -226,12 +227,12 @@ public class Admin extends Person {
         return "Marketing employee with ID MarketingEmployee_" + id + " not found.";
     }
 
-    public static void addInventoryEmployee(String username, String email, String password, String address,
+    public void addInventoryEmployee(String username, String email, String password, String address,
             int number) {
         new InventoryEmployee(username, email, password, address, number);
     }
 
-    public static void deleteInventoryEmployee(int id) {
+    public void deleteInventoryEmployee(int id) {
         String filePath = FilePaths.inventoryEmployeePath;
 
         File inputFile = new File(filePath);
@@ -270,7 +271,7 @@ public class Admin extends Person {
         }
     }
 
-    public static String searchInventoryEmployee(int id) {
+    public String searchInventoryEmployee(int id) {
         String[] inventoryEmployees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
 
         for (String line : inventoryEmployees) {
@@ -288,11 +289,11 @@ public class Admin extends Person {
         return "Inventory employee with ID InventoryEmployee_" + id + " not found.";
     }
 
-    public static void addSellerEmployee(String username, String email, String password, String address, int number) {
+    public void addSellerEmployee(String username, String email, String password, String address, int number) {
         new Seller(username, email, password, address, number);
     }
 
-    public static void deleteSellerEmployee(int id) {
+    public void deleteSellerEmployee(int id) {
         String filePath = FilePaths.sellerEmployeePath;
 
         File inputFile = new File(filePath);
@@ -331,7 +332,7 @@ public class Admin extends Person {
         }
     }
 
-    public static String searchSellerEmployee(int id) {
+    public String searchSellerEmployee(int id) {
         String[] sellerEmployees = FileHandler.readFile(FilePaths.sellerEmployeePath);
 
         for (String line : sellerEmployees) {
@@ -349,7 +350,7 @@ public class Admin extends Person {
         return "Seller employee with ID Seller_" + id + " not found.";
     }
 
-    public static String[] listAllEmployees() {
+    public String[] listAllEmployees() {
         String[] inventoryEmployees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
         String[] marketingEmployees = FileHandler.readFile(FilePaths.marketingEmployeePath);
         String[] sellerEmployees = FileHandler.readFile(FilePaths.sellerEmployeePath);

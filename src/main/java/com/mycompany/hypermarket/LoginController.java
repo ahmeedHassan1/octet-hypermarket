@@ -59,7 +59,16 @@ public class LoginController {
                 case "Admin":
                     Admin admin = new Admin();
                     details = admin.login(mail, pass);
+
                     loader = new FXMLLoader(getClass().getResource("admin.fxml"));
+                    root = loader.load();
+                    AdminController adminController = loader.getController();
+
+                    Admin admin1 = new Admin(details[1], details[2], details[3], details[4],
+                    Integer.parseInt(details[5]), false);
+                    admin1.setId(details[0]);
+
+                    adminController.setAdmin(admin1);
                     break;
                 case "MarketingEmployee":
                     MarketingEmployee marketingEmployee = new MarketingEmployee();
@@ -80,16 +89,10 @@ public class LoginController {
                     throw new Exception("Invalid role");
             }
 
-            root = loader.load();
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-
-            // SecondaryController controller = loader.getController();
-            // controller.displayEmail(mail);
-
-            // root = FXMLLoader.load(getClass().getResource("secondary.fxml"));
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

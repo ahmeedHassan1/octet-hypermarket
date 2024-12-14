@@ -4,12 +4,13 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
 public class AdminController {
+
+    private Admin admin;
     @FXML
     private Button listEmployees;
     @FXML
@@ -31,6 +32,10 @@ public class AdminController {
     @FXML
     private TextField newEmployeeNumber;
 
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
     @FXML
     public void initialize() {
         for (MenuItem item : type.getItems()) {
@@ -44,7 +49,7 @@ public class AdminController {
 
     @FXML
     private void listAllEmployees() throws IOException {
-        String[] employees = Admin.listAllEmployees();
+        String[] employees = admin.listAllEmployees();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("List of Employees");
         alert.setHeaderText(null);
@@ -66,7 +71,7 @@ public class AdminController {
             String employeeId = id.getText();
             String role = type.getText();
 
-            Admin.setEmployeeType(employeeId, role);
+            admin.setEmployeeType(employeeId, role);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -102,7 +107,7 @@ public class AdminController {
                 throw new Exception("Invalid employee ID");
             }
 
-            Admin.updateEmployeeUsername(employeeType, intID, username);
+            admin.updateEmployeeUsername(employeeType, intID, username);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -144,13 +149,13 @@ public class AdminController {
 
             switch (role) {
                 case "Seller":
-                    Admin.addSellerEmployee(username, email, password, address, number);
+                    admin.addSellerEmployee(username, email, password, address, number);
                     break;
                 case "MarketingEmployee":
-                    Admin.addMarketingEmployee(username, email, password, address, number);
+                    admin.addMarketingEmployee(username, email, password, address, number);
                     break;
                 case "InventoryEmployee":
-                    Admin.addInventoryEmployee(username, email, password, address, number);
+                    admin.addInventoryEmployee(username, email, password, address, number);
                     break;
                 default:
                     throw new Exception("Invalid role");
@@ -181,11 +186,11 @@ public class AdminController {
             String details = null;
 
             if (employeeId.startsWith("Seller_")) {
-                details = Admin.searchSellerEmployee(intID);
+                details = admin.searchSellerEmployee(intID);
             } else if (employeeId.startsWith("MarketingEmployee_")) {
-                details = Admin.searchMarketingEmployee(intID);
+                details = admin.searchMarketingEmployee(intID);
             } else if (employeeId.startsWith("InventoryEmployee_")) {
-                details = Admin.searchInventoryEmployee(intID);
+                details = admin.searchInventoryEmployee(intID);
             } else {
                 throw new Exception("Invalid employee ID");
             }
@@ -215,11 +220,11 @@ public class AdminController {
             int intID = Integer.parseInt(employeeId.substring(employeeId.indexOf("_") + 1));
 
             if (employeeId.startsWith("Seller_")) {
-                Admin.deleteSellerEmployee(intID);
+                admin.deleteSellerEmployee(intID);
             } else if (employeeId.startsWith("MarketingEmployee_")) {
-                Admin.deleteMarketingEmployee(intID);
+                admin.deleteMarketingEmployee(intID);
             } else if (employeeId.startsWith("InventoryEmployee_")) {
-                Admin.deleteInventoryEmployee(intID);
+                admin.deleteInventoryEmployee(intID);
             } else {
                 throw new Exception("Invalid employee ID");
             }
