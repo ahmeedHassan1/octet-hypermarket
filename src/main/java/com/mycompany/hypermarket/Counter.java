@@ -25,7 +25,7 @@ public class Counter {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(value + "");
         } catch (Exception e) {
-            System.out.println("Error saving counter to file: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -42,7 +42,7 @@ public class Counter {
             String value = reader.readLine();
             return (value != null) ? Integer.parseInt(value) : 0;
         } catch (Exception e) {
-            System.out.println("Error reading counter from file: " + e.getMessage());
+            e.printStackTrace();
             return 0;
         }
     }

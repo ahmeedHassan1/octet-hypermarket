@@ -31,7 +31,7 @@ public class Seller extends Person {
                 getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
     }
 
-    public String[] login(String email, String password) throws Exception{
+    public String[] login(String email, String password) throws Exception {
         String[] employees = FileHandler.readFile(FilePaths.sellerEmployeePath);
 
         for (String line : employees) {
@@ -43,6 +43,13 @@ public class Seller extends Person {
         }
 
         throw new Exception("Invalid email or password.");
+    }
+
+    @Override
+    public int calculateSalary() {
+        int baseSalary = super.calculateSalary();
+        int salary = baseSalary + 3000;
+        return salary;
     }
 
     public String[] listProducts() {
@@ -67,7 +74,7 @@ public class Seller extends Person {
         return "Product with ID Product_" + id + " not found.";
     }
 
-    public static void createOrder(String ownerId, int[] productIds, int[] quantities) throws Exception {
+    public void createOrder(int[] productIds, int[] quantities) throws Exception {
         try {
             String[] products = FileHandler.readFile(FilePaths.productsPath);
 
@@ -79,7 +86,7 @@ public class Seller extends Person {
 
                     if (details.length > 0 && details[0].equals("Product_" + productIds[i])) {
                         productFound = true;
-                        int currentStock = Integer.parseInt(details[2]); 
+                        int currentStock = Integer.parseInt(details[2]);
 
                         if (quantities[i] > currentStock) {
                             throw new Exception("Product_" + productIds[i] + " stock is insufficient.");
@@ -102,19 +109,21 @@ public class Seller extends Person {
                 InventoryEmployee.updateProductQuantity(productIds[i], newQuantity);
             }
 
-            new Order(ownerId, productIds, quantities);
+            new Order(getId(), productIds, quantities);
         } catch (Exception e) {
             throw new Exception("Error creating order: " + e.getMessage());
         }
     }
 
-    public static void cancelOrder(String orderId) throws Exception{
+    public void cancelOrder(String orderId) throws Exception {
         String[] orders = FileHandler.readFile(FilePaths.orderPath);
+        boolean found = false;
 
         for (String line : orders) {
             String[] details = line.split(",");
 
             if (details.length > 0 && details[0].equals(orderId)) {
+                found = true; 
                 int[] productIds = new int[details.length - 3];
                 int[] quantities = new int[details.length - 3];
 
@@ -126,6 +135,9 @@ public class Seller extends Person {
 
                 for (int i = 0; i < productIds.length; i++) {
                     String productLine = searchProduct(productIds[i]);
+                    if (productLine == null) {
+                        throw new Exception("Product with ID " + productIds[i] + " not found.");
+                    }
                     String[] productDetails = productLine.split(",");
                     int currentStock = Integer.parseInt(productDetails[2]);
 
@@ -144,7 +156,7 @@ public class Seller extends Person {
 
                     while ((currentLine = reader.readLine()) != null) {
                         if (currentLine.equals(line)) {
-                            continue;
+                            continue; 
                         }
 
                         writer.write(currentLine);
@@ -156,9 +168,59 @@ public class Seller extends Person {
 
                 inputFile.delete();
                 tempFile.renameTo(inputFile);
+
+                break; 
             }
         }
 
-        throw new Exception("Order with ID " + orderId + " not found.");
+        if (!found) {
+            throw new Exception("Order with ID " + orderId + " not found.");
+        }
+    }
+
+    public void updateSellerEmployee(String username, String email, String password,
+            String address, int number) throws Exception {
+        String filePath = FilePaths.sellerEmployeePath;
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = getId();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                    details[1] = username;
+                    details[2] = email;
+                    details[3] = password;
+                    details[4] = address;
+                    details[5] = number + "";
+                    String updatedLine = String.join(",", details);
+                    writer.write(updatedLine);
+                    writer.newLine();
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Error updating employee: " + e.getMessage());
+        }
+
+        if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+        } else {
+            tempFile.delete();
+            throw new Exception("Employee with ID " + idString + " not found.");
+        }
     }
 }

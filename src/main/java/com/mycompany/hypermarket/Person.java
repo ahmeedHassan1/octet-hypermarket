@@ -30,6 +30,10 @@ public abstract class Person {
 
     public abstract String[] login(String username, String password) throws Exception;
 
+    public int calculateSalary() {
+        return 1000;
+    }
+
     public String getId() {
         return id;
     }

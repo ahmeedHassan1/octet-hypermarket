@@ -46,6 +46,13 @@ public class Admin extends Person {
         throw new Exception("Invalid email or password");
     }
 
+    @Override
+    public int calculateSalary() {
+        int baseSalary = super.calculateSalary();
+        int salary = baseSalary + 5000;
+        return salary;
+    }
+
     public void setEmployeeType(String id, String newEmployeeType) throws Exception {
         String filePath = null;
         if (id.startsWith("Seller_")) {
@@ -104,7 +111,7 @@ public class Admin extends Person {
         }
     }
 
-    public void updateEmployeeUsername(String employeeType, int idToUpdate, String newUsername) {
+    public void updateEmployeeUsername(String employeeType, int idToUpdate, String newUsername) throws Exception {
         String filePath;
         switch (employeeType.toLowerCase()) {
             case "marketingemployee":
@@ -117,8 +124,7 @@ public class Admin extends Person {
                 filePath = FilePaths.inventoryEmployeePath;
                 break;
             default:
-                System.out.println("Invalid employee type specified.");
-                return;
+                throw new Exception("Invalid employee type");
         }
 
         File inputFile = new File(filePath);
@@ -147,17 +153,16 @@ public class Admin extends Person {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error updating employee: " + e.getMessage());
-            return;
+            throw new Exception("Error updating employee username: " + e.getMessage());
         }
 
         if (found) {
             inputFile.delete();
             tempFile.renameTo(inputFile);
-            System.out.println("Username updated successfully.");
+
         } else {
-            System.out.println("Employee with ID " + idString + " not found.");
             tempFile.delete();
+            throw new Exception("Employee with ID " + idString + " not found.");
         }
     }
 
@@ -166,7 +171,7 @@ public class Admin extends Person {
         new MarketingEmployee(username, email, password, address, number);
     }
 
-    public void deleteMarketingEmployee(int id) {
+    public void deleteMarketingEmployee(int id) throws Exception {
         String filePath = FilePaths.marketingEmployeePath;
 
         File inputFile = new File(filePath);
@@ -191,21 +196,19 @@ public class Admin extends Person {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error deleting employee: " + e.getMessage());
-            return;
+            throw new Exception("Error deleting employee: " + e.getMessage());
         }
 
         if (found) {
             inputFile.delete();
             tempFile.renameTo(inputFile);
-            System.out.println("Employee deleted successfully.");
         } else {
-            System.out.println("Employee with ID " + idString + " not found.");
             tempFile.delete();
+            throw new Exception("Employee with ID " + idString + " not found.");
         }
     }
 
-    public String searchMarketingEmployee(int id) {
+    public String searchMarketingEmployee(int id) throws Exception {
         String[] marketingEmployees = FileHandler.readFile(FilePaths.marketingEmployeePath);
 
         for (String line : marketingEmployees) {
@@ -220,7 +223,7 @@ public class Admin extends Person {
             }
         }
 
-        return "Marketing employee with ID MarketingEmployee_" + id + " not found.";
+        throw new Exception("Marketing employee with ID MarketingEmployee_" + id + " not found.");
     }
 
     public void addInventoryEmployee(String username, String email, String password, String address,
@@ -228,7 +231,7 @@ public class Admin extends Person {
         new InventoryEmployee(username, email, password, address, number);
     }
 
-    public void deleteInventoryEmployee(int id) {
+    public void deleteInventoryEmployee(int id) throws Exception {
         String filePath = FilePaths.inventoryEmployeePath;
 
         File inputFile = new File(filePath);
@@ -253,21 +256,19 @@ public class Admin extends Person {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error deleting employee: " + e.getMessage());
-            return;
+            throw new Exception("Error deleting employee: " + e.getMessage());
         }
 
         if (found) {
             inputFile.delete();
             tempFile.renameTo(inputFile);
-            System.out.println("Employee deleted successfully.");
         } else {
-            System.out.println("Employee with ID " + idString + " not found.");
             tempFile.delete();
+            throw new Exception("Employee with ID " + idString + " not found.");
         }
     }
 
-    public String searchInventoryEmployee(int id) {
+    public String searchInventoryEmployee(int id) throws Exception {
         String[] inventoryEmployees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
 
         for (String line : inventoryEmployees) {
@@ -282,14 +283,14 @@ public class Admin extends Person {
             }
         }
 
-        return "Inventory employee with ID InventoryEmployee_" + id + " not found.";
+        throw new Exception("Inventory employee with ID InventoryEmployee_" + id + " not found.");
     }
 
     public void addSellerEmployee(String username, String email, String password, String address, int number) {
         new Seller(username, email, password, address, number);
     }
 
-    public void deleteSellerEmployee(int id) {
+    public void deleteSellerEmployee(int id) throws Exception {
         String filePath = FilePaths.sellerEmployeePath;
 
         File inputFile = new File(filePath);
@@ -314,17 +315,15 @@ public class Admin extends Person {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error deleting employee: " + e.getMessage());
-            return;
+            throw new Exception("Error deleting employee: " + e.getMessage());
         }
 
         if (found) {
             inputFile.delete();
             tempFile.renameTo(inputFile);
-            System.out.println("Employee deleted successfully.");
         } else {
-            System.out.println("Employee with ID " + idString + " not found.");
             tempFile.delete();
+            throw new Exception("Employee with ID " + idString + " not found.");
         }
     }
 
@@ -347,6 +346,7 @@ public class Admin extends Person {
     }
 
     public String[] listAllEmployees() {
+
         String[] inventoryEmployees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
         String[] marketingEmployees = FileHandler.readFile(FilePaths.marketingEmployeePath);
         String[] sellerEmployees = FileHandler.readFile(FilePaths.sellerEmployeePath);
@@ -368,5 +368,70 @@ public class Admin extends Person {
 
         return result;
 
+    }
+
+    public String[] listAllEmployees(String employeeType) {
+        String filePath;
+        switch (employeeType.toLowerCase()) {
+            case "marketingemployee":
+                filePath = FilePaths.marketingEmployeePath;
+                break;
+            case "seller":
+                filePath = FilePaths.sellerEmployeePath;
+                break;
+            case "inventoryemployee":
+                filePath = FilePaths.inventoryEmployeePath;
+                break;
+            default:
+                return new String[0];
+        }
+
+        return FileHandler.readFile(filePath);
+    }
+
+    public void updateAdmin(String newUsername, String newEmail, String newPassword, String newAddress, int newNumber)
+            throws Exception {
+        String filePath = FilePaths.adminPath;
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = "Admin_" + counter.getValue();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                    details[1] = newUsername;
+                    details[2] = newEmail;
+                    details[3] = newPassword;
+                    details[4] = newAddress;
+                    details[5] = newNumber + "";
+                    String updatedLine = String.join(",", details);
+                    writer.write(updatedLine);
+                    writer.newLine();
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Error updating admin: " + e.getMessage());
+        }
+
+        if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+        } else {
+            tempFile.delete();
+            throw new Exception("Admin with ID " + idString + " not found.");
+        }
     }
 }

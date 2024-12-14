@@ -34,7 +34,7 @@ public class InventoryEmployee extends Person {
                 getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
     }
 
-    public String[] login(String email, String password) throws Exception{
+    public String[] login(String email, String password) throws Exception {
         String[] employees = FileHandler.readFile(FilePaths.inventoryEmployeePath);
 
         for (String line : employees) {
@@ -48,11 +48,18 @@ public class InventoryEmployee extends Person {
         throw new Exception("Invalid email or password.");
     }
 
-    public static void addProduct(String name, int quantity, double price, Date expiryDate) {
+    @Override
+    public int calculateSalary() {
+        int baseSalary = super.calculateSalary();
+        int salary = baseSalary + 4000;
+        return salary;
+    }
+
+    public void addProduct(String name, int quantity, double price, Date expiryDate) {
         new Product(name, quantity, price, expiryDate);
     }
 
-    public static void deleteProduct(int id) {
+    public void deleteProduct(int id) throws Exception {
         String filePath = FilePaths.productsPath;
 
         File inputFile = new File(filePath);
@@ -77,22 +84,19 @@ public class InventoryEmployee extends Person {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error deleting product: " + e.getMessage());
-            return;
+            throw new Exception("Error deleting product: " + e.getMessage());
         }
 
         if (found) {
             inputFile.delete();
             tempFile.renameTo(inputFile);
-            System.out.println("Product deleted successfully.");
-
         } else {
-            System.out.println("Product with ID " + idString + " not found.");
             tempFile.delete();
+            throw new Exception("Product with ID " + idString + " not found.");
         }
     }
 
-    public static void updateProductPrice(int idToUpdate, double newPrice) {
+    public void updateProductPrice(int idToUpdate, double newPrice) throws Exception{
         String filePath = FilePaths.productsPath;
 
         File inputFile = new File(filePath);
@@ -121,22 +125,19 @@ public class InventoryEmployee extends Person {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error updating product: " + e.getMessage());
-            return;
+            throw new Exception("Error updating price: " + e.getMessage());
         }
 
         if (found) {
             inputFile.delete();
             tempFile.renameTo(inputFile);
-            System.out.println("Price updated successfully.");
-
         } else {
-            System.out.println("Product with ID " + idString + " not found.");
             tempFile.delete();
+            throw new Exception("Product with ID " + idString + " not found.");
         }
     }
 
-    public static void updateProductQuantity(int idToUpdate, int newQuantity) {
+    public static void updateProductQuantity(int idToUpdate, int newQuantity) throws Exception {
         String filePath = FilePaths.productsPath;
 
         File inputFile = new File(filePath);
@@ -165,26 +166,23 @@ public class InventoryEmployee extends Person {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error updating product: " + e.getMessage());
-            return;
+            throw new Exception("Error updating quantity: " + e.getMessage());
         }
 
         if (found) {
             inputFile.delete();
             tempFile.renameTo(inputFile);
-            System.out.println("Quantity updated successfully.");
-
         } else {
-            System.out.println("Product with ID " + idString + " not found.");
             tempFile.delete();
+            throw new Exception("Product with ID " + idString + " not found.");
         }
     }
 
-    public static String[] listProducts() {
+    public String[] listProducts() {
         return FileHandler.readFile(FilePaths.productsPath);
     }
 
-    public static String searchProduct(int id) {
+    public String searchProduct(int id) throws Exception {
         String[] products = FileHandler.readFile(FilePaths.productsPath);
 
         for (String line : products) {
@@ -199,11 +197,10 @@ public class InventoryEmployee extends Person {
             }
         }
 
-        return "Product with ID Product_" + id + " not found.";
-
+        throw new Exception("Product with ID Product_" + id + " not found.");
     }
 
-    public static String quantityOfProductNotification(int id) {
+    public String quantityOfProductNotification(int id) throws Exception {
         String product = searchProduct(id);
         String[] details = product.split(",");
         int quantity = Integer.parseInt(details[2]);
@@ -213,7 +210,7 @@ public class InventoryEmployee extends Person {
         return "Product with ID Product_" + id + " has a quantity of " + quantity + ".";
     }
 
-    public static String expiryDateOfProductNotification(int id) {
+    public String expiryDateOfProductNotification(int id) throws Exception {
         String product = searchProduct(id);
 
         try {
@@ -229,7 +226,53 @@ public class InventoryEmployee extends Person {
                 return "Product with ID Product_" + id + " has not expired.";
             }
         } catch (ParseException e) {
-            return "Error parsing expiry date for Product_" + id + ": " + e.getMessage();
+            throw new Exception("Error parsing date: " + e.getMessage());
+        }
+    }
+
+    public void updateInventoryEmployee(String username, String email, String password,
+            String address, int number) throws Exception {
+        String filePath = FilePaths.inventoryEmployeePath;
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = getId();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                    details[1] = username;
+                    details[2] = email;
+                    details[3] = password;
+                    details[4] = address;
+                    details[5] = number + "";
+                    String updatedLine = String.join(",", details);
+                    writer.write(updatedLine);
+                    writer.newLine();
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Error updating employee: " + e.getMessage());
+        }
+
+        if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+        } else {
+            tempFile.delete();
+            throw new Exception("Employee with ID " + idString + " not found.");
         }
     }
 }

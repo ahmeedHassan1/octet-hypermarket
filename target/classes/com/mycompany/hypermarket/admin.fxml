@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hypermarket.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="987.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hypermarket.AdminController">
    <children>
       <Button fx:id="listEmployees" layoutX="22.0" layoutY="415.0" mnemonicParsing="false" onAction="#listAllEmployees" text="List all employees" />
       <MenuButton fx:id="type" layoutX="101.0" layoutY="194.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
@@ -48,6 +48,19 @@
       <Button layoutX="501.0" layoutY="354.0" mnemonicParsing="false" onAction="#addEmployee" text="Submit" />
       <Button layoutX="257.0" layoutY="154.0" mnemonicParsing="false" onAction="#searchEmployee" text="Search" />
       <Button layoutX="103.0" layoutY="306.0" mnemonicParsing="false" onAction="#deleteEmployee" style="-fx-background-color: #fc6d62;" text="Delete" />
-      <Button fx:id="listEmployees1" layoutX="529.0" layoutY="18.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+      <Button fx:id="listEmployees1" layoutX="919.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+      <TextField fx:id="newAdminUsername" layoutX="780.0" layoutY="134.0" prefWidth="141.0" />
+      <Label layoutX="701.0" layoutY="138.0" text="Username" />
+      <TextField fx:id="newAdminEmail" layoutX="780.0" layoutY="169.0" prefWidth="141.0" />
+      <Label layoutX="703.0" layoutY="173.0" text="Email" />
+      <TextField fx:id="newAdminPassword" layoutX="780.0" layoutY="207.0" prefWidth="141.0" />
+      <Label layoutX="701.0" layoutY="211.0" text="Password" />
+      <TextField fx:id="newAdminAddress" layoutX="780.0" layoutY="244.0" prefWidth="141.0" />
+      <Label layoutX="701.0" layoutY="248.0" text="Address" />
+      <TextField fx:id="newAdminNumber" layoutX="781.0" layoutY="281.0" prefWidth="141.0" />
+      <Label layoutX="702.0" layoutY="285.0" text="Number" />
+      <Button layoutX="867.0" layoutY="318.0" mnemonicParsing="false" onAction="#updateAdmin" text="Submit" />
+      <Text layoutX="694.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Admin Data" />
+      <Text fx:id="salary" layoutX="27.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

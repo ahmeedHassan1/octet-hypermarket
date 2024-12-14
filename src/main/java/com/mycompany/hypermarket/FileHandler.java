@@ -20,14 +20,9 @@ public class FileHandler {
         File file = new File(filePath);
 
         try {
-            if (file.createNewFile()) {
-                System.out.println("File is Created");
-            } else {
-                System.out.println("File already exists");
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Invalid File Path");
+            file.createNewFile();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return file;
     }
@@ -35,9 +30,9 @@ public class FileHandler {
     public static void writeToFile(File file, String content, boolean append) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, append))) {
             bw.write(content);
-            bw.newLine(); 
-        } catch (Exception ex) {
-            System.out.println("Error writing to file: " + ex.getMessage());
+            bw.newLine();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -45,24 +40,22 @@ public class FileHandler {
         try {
             File file = createFile(filePath);
             Scanner fr = new Scanner(file);
-            StringBuilder lines = new StringBuilder(); 
+            StringBuilder lines = new StringBuilder();
             while (fr.hasNextLine()) {
                 lines.append(fr.nextLine()).append("\n");
             }
-            fr.close(); 
-            return lines.toString().split("\n"); 
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found: " + ex.getMessage());
-            return new String[0]; 
+            fr.close();
+            return lines.toString().split("\n");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return new String[0];
         }
     }
 
-    public static void deleteFile(String filePath) {
+    public static void deleteFile(String filePath) throws Exception {
         File file = new File(filePath);
-        if (file.delete()) {
-            System.out.println("File deleted successfully");
-        } else {
-            System.out.println("Failed to delete the file");
+        if (!file.delete()) {
+            throw new Exception("Failed to delete file.");
         }
     }
 

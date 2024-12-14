@@ -1,7 +1,5 @@
 package com.mycompany.hypermarket;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +31,8 @@ public class LoginController {
         }
     }
 
-    public void login(ActionEvent event) throws IOException {
+    @FXML
+    public void login(ActionEvent event) throws Exception {
 
         try {
             if (email.getText().isEmpty()) {
@@ -59,7 +58,7 @@ public class LoginController {
                 case "Admin":
                     Admin admin = new Admin();
                     details = admin.login(mail, pass);
-                    
+
                     admin.setId(details[0]);
                     admin.setUsername(details[1]);
                     admin.setEmail(details[2]);
@@ -76,17 +75,50 @@ public class LoginController {
                 case "MarketingEmployee":
                     MarketingEmployee marketingEmployee = new MarketingEmployee();
                     details = marketingEmployee.login(mail, pass);
-                    System.out.println(details[0]);
+
+                    marketingEmployee.setId(details[0]);
+                    marketingEmployee.setUsername(details[1]);
+                    marketingEmployee.setEmail(details[2]);
+                    marketingEmployee.setPassword(details[3]);
+                    marketingEmployee.setAddress(details[4]);
+                    marketingEmployee.setNumber(Integer.parseInt(details[5]));
+
+                    loader = new FXMLLoader(getClass().getResource("marketing.fxml"));
+                    root = loader.load();
+                    MarketingController marketingController = loader.getController();
+                    marketingController.setMarketingEmployee(marketingEmployee);
                     break;
                 case "InventoryEmployee":
                     InventoryEmployee inventoryEmployee = new InventoryEmployee();
                     details = inventoryEmployee.login(mail, pass);
-                    System.out.println(details[0]);
+
+                    inventoryEmployee.setId(details[0]);
+                    inventoryEmployee.setUsername(details[1]);
+                    inventoryEmployee.setEmail(details[2]);
+                    inventoryEmployee.setPassword(details[3]);
+                    inventoryEmployee.setAddress(details[4]);
+                    inventoryEmployee.setNumber(Integer.parseInt(details[5]));
+
+                    loader = new FXMLLoader(getClass().getResource("inventory.fxml"));
+                    root = loader.load();
+                    InventoryController inventoryController = loader.getController();
+                    inventoryController.setInventoryEmployee(inventoryEmployee);
                     break;
                 case "Seller":
                     Seller seller = new Seller();
                     details = seller.login(mail, pass);
-                    System.out.println(details[0]);
+
+                    seller.setId(details[0]);
+                    seller.setUsername(details[1]);
+                    seller.setEmail(details[2]);
+                    seller.setPassword(details[3]);
+                    seller.setAddress(details[4]);
+                    seller.setNumber(Integer.parseInt(details[5]));
+
+                    loader = new FXMLLoader(getClass().getResource("seller.fxml"));
+                    root = loader.load();
+                    SellerController sellerController = loader.getController();
+                    sellerController.setSeller(seller);
                     break;
                 default:
                     throw new Exception("Invalid role");

@@ -31,7 +31,7 @@ public class MarketingEmployee extends Person {
                 getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
     }
 
-    public String[] login(String email, String password) throws Exception{
+    public String[] login(String email, String password) throws Exception {
         String[] employees = FileHandler.readFile(FilePaths.marketingEmployeePath);
 
         for (String line : employees) {
@@ -45,11 +45,18 @@ public class MarketingEmployee extends Person {
         throw new Exception("Invalid email or password.");
     }
 
+    @Override
+    public int calculateSalary() {
+        int baseSalary = super.calculateSalary();
+        int salary = baseSalary + 3000;
+        return salary;
+    }
+
     public void createReport(String content) {
         new Report(getId(), content);
     }
 
-    public static void createOffer(int idToUpdate, double discount) {
+    public void createOffer(int idToUpdate, double discount) throws Exception {
         String filePath = FilePaths.productsPath;
 
         File inputFile = new File(filePath);
@@ -69,9 +76,7 @@ public class MarketingEmployee extends Person {
                 if (details.length > 0 && details[0].equals(idString)) {
                     found = true;
                     details[5] = discount + "";
-                    System.out.println(details[5]);
                     String updatedLine = String.join(",", details);
-                    System.out.println(updatedLine);
 
                     writer.write(updatedLine);
                     writer.newLine();
@@ -81,18 +86,62 @@ public class MarketingEmployee extends Person {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error updating product: " + e.getMessage());
-            return;
+            throw new Exception("Error updating discount: " + e.getMessage());
         }
 
         if (found) {
             inputFile.delete();
             tempFile.renameTo(inputFile);
-            System.out.println("Discount updated successfully.");
 
         } else {
-            System.out.println("Product with ID " + idString + " not found.");
             tempFile.delete();
+            throw new Exception("Product with ID " + idString + " not found.");
+        }
+    }
+
+    public void updateMarketingEmployee(String username, String email, String password,
+            String address, int number) throws Exception {
+        String filePath = FilePaths.marketingEmployeePath;
+
+        File inputFile = new File(filePath);
+        File tempFile = new File("tempFile.txt");
+
+        boolean found = false;
+        String idString = getId();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] details = currentLine.split(",");
+
+                if (details.length > 0 && details[0].equals(idString)) {
+                    found = true;
+                    details[1] = username;
+                    details[2] = email;
+                    details[3] = password;
+                    details[4] = address;
+                    details[5] = number + "";
+                    String updatedLine = String.join(",", details);
+                    writer.write(updatedLine);
+                    writer.newLine();
+                } else {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Error updating employee: " + e.getMessage());
+        }
+
+        if (found) {
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+        } else {
+            tempFile.delete();
+            throw new Exception("Employee with ID " + idString + " not found.");
         }
     }
 }

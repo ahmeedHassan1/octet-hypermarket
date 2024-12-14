@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="987.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hypermarket.InventoryController">
+   <children>
+      <Button layoutX="22.0" layoutY="415.0" mnemonicParsing="false" onAction="#listAllProducts" text="List all products" />
+      <TextField fx:id="name" layoutX="414.0" layoutY="136.0" prefWidth="141.0" />
+      <Label layoutX="335.0" layoutY="140.0" text="Name" />
+      <Text layoutX="337.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Product" />
+      <TextField fx:id="quantity" layoutX="414.0" layoutY="169.0" prefWidth="141.0" />
+      <Label layoutX="337.0" layoutY="173.0" text="Quantity" />
+      <TextField fx:id="price" layoutX="414.0" layoutY="207.0" prefWidth="141.0" />
+      <Label layoutX="335.0" layoutY="211.0" text="Price" />
+      <TextField fx:id="expiryDate" layoutX="414.0" layoutY="244.0" prefWidth="141.0" />
+      <Label layoutX="335.0" layoutY="248.0" text="Expiry Date" />
+      <Button layoutX="501.0" layoutY="281.0" mnemonicParsing="false" onAction="#addProduct" text="Submit" />
+      <Button layoutX="59.0" layoutY="260.0" mnemonicParsing="false" onAction="#deleteProduct" style="-fx-background-color: #fc6d62;" text="Delete" />
+      <Button fx:id="listEmployees1" layoutX="919.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+      <TextField fx:id="newInventoryEmployeeUsername" layoutX="780.0" layoutY="134.0" prefWidth="141.0" />
+      <Label layoutX="701.0" layoutY="138.0" text="Username" />
+      <TextField fx:id="newInventoryEmployeeEmail" layoutX="780.0" layoutY="169.0" prefWidth="141.0" />
+      <Label layoutX="703.0" layoutY="173.0" text="Email" />
+      <TextField fx:id="newInventoryEmployeePassword" layoutX="780.0" layoutY="207.0" prefWidth="141.0" />
+      <Label layoutX="701.0" layoutY="211.0" text="Password" />
+      <TextField fx:id="newInventoryEmployeeAddress" layoutX="780.0" layoutY="244.0" prefWidth="141.0" />
+      <Label layoutX="701.0" layoutY="248.0" text="Address" />
+      <TextField fx:id="newInventoryEmployeeNumber" layoutX="781.0" layoutY="281.0" prefWidth="141.0" />
+      <Label layoutX="702.0" layoutY="285.0" text="Number" />
+      <Button layoutX="867.0" layoutY="318.0" mnemonicParsing="false" onAction="#updateInventoryEmployee" text="Submit" />
+      <Text layoutX="694.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Inventory EmployeeData" />
+      <TextField fx:id="productID" layoutX="57.0" layoutY="137.0" prefWidth="141.0" />
+      <Label layoutX="41.0" layoutY="140.0" text="ID" />
+      <Text layoutX="28.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Product Data" />
+      <TextField fx:id="newQuantity" layoutX="57.0" layoutY="170.0" prefWidth="141.0" />
+      <Label layoutX="5.0" layoutY="173.0" text="Quantity" />
+      <Button layoutX="144.0" layoutY="200.0" mnemonicParsing="false" onAction="#updateProductQuantity" text="Submit" />
+      <TextField fx:id="newPrice" layoutX="58.0" layoutY="230.0" prefWidth="141.0" />
+      <Label layoutX="21.0" layoutY="234.0" text="Price" />
+      <Button layoutX="145.0" layoutY="260.0" mnemonicParsing="false" onAction="#updateProductPrice" text="Submit" />
+      <Button layoutX="216.0" layoutY="137.0" mnemonicParsing="false" onAction="#searchProduct" text="Search" />
+      <Button layoutX="58.0" layoutY="306.0" mnemonicParsing="false" onAction="#quantityNotification" prefHeight="25.0" prefWidth="141.0" text="Quantity Notification" />
+      <Button layoutX="58.0" layoutY="343.0" mnemonicParsing="false" onAction="#expiryDateNotification" prefHeight="25.0" prefWidth="141.0" text="Expiry Notification" />
+   </children>
+</AnchorPane>

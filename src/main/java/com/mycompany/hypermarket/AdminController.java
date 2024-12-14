@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class AdminController extends BaseController {
 
@@ -33,6 +34,19 @@ public class AdminController extends BaseController {
     private TextField newEmployeeAddress;
     @FXML
     private TextField newEmployeeNumber;
+    @FXML
+    private TextField newAdminUsername;
+    @FXML
+    private TextField newAdminEmail;
+    @FXML
+    private TextField newAdminPassword;
+    @FXML
+    private TextField newAdminAddress;
+    @FXML
+    private TextField newAdminNumber;
+    @FXML
+    private Text salary;
+
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
@@ -40,6 +54,8 @@ public class AdminController extends BaseController {
 
     @FXML
     public void initialize() {
+        Person person = new Admin();
+        salary.setText("Salary: " + person.calculateSalary());
         for (MenuItem item : type.getItems()) {
             item.setOnAction(event -> type.setText(item.getText()));
         }
@@ -50,7 +66,7 @@ public class AdminController extends BaseController {
     }
 
     @FXML
-    private void listAllEmployees() throws IOException {
+    private void listAllEmployees() {
         String[] employees = admin.listAllEmployees();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("List of Employees");
@@ -235,6 +251,31 @@ public class AdminController extends BaseController {
             alert.setTitle("Success");
             alert.setHeaderText(null);
             alert.setContentText("Employee deleted successfully.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void updateAdmin() {
+        try {
+            String username = newAdminUsername.getText().isEmpty() ? admin.getUsername() : newAdminUsername.getText();
+            String email = newAdminEmail.getText().isEmpty() ? admin.getEmail() : newAdminEmail.getText();
+            String password = newAdminPassword.getText().isEmpty() ? admin.getPassword() : newAdminPassword.getText();
+            String address = newAdminAddress.getText().isEmpty() ? admin.getAddress() : newAdminAddress.getText();
+            int number = newAdminNumber.getText().isEmpty() ? admin.getNumber() : Integer.parseInt(newAdminNumber.getText());
+
+            admin.updateAdmin(username, email, password, address, number);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Admin updated successfully.");
             alert.showAndWait();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
