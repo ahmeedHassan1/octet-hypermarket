@@ -59,16 +59,19 @@ public class LoginController {
                 case "Admin":
                     Admin admin = new Admin();
                     details = admin.login(mail, pass);
+                    
+                    admin.setId(details[0]);
+                    admin.setUsername(details[1]);
+                    admin.setEmail(details[2]);
+                    admin.setPassword(details[3]);
+                    admin.setAddress(details[4]);
+                    admin.setNumber(Integer.parseInt(details[5]));
 
                     loader = new FXMLLoader(getClass().getResource("admin.fxml"));
                     root = loader.load();
                     AdminController adminController = loader.getController();
 
-                    Admin admin1 = new Admin(details[1], details[2], details[3], details[4],
-                    Integer.parseInt(details[5]), false);
-                    admin1.setId(details[0]);
-
-                    adminController.setAdmin(admin1);
+                    adminController.setAdmin(admin);
                     break;
                 case "MarketingEmployee":
                     MarketingEmployee marketingEmployee = new MarketingEmployee();

@@ -11,21 +11,21 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hypermarket.AdminController">
    <children>
       <Button fx:id="listEmployees" layoutX="22.0" layoutY="415.0" mnemonicParsing="false" onAction="#listAllEmployees" text="List all employees" />
-      <MenuButton fx:id="type" layoutX="99.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
+      <MenuButton fx:id="type" layoutX="92.0" layoutY="101.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
         <items>
           <MenuItem mnemonicParsing="false" text="Seller" />
           <MenuItem mnemonicParsing="false" text="MarketingEmployee" />
             <MenuItem mnemonicParsing="false" text="InventoryEmployee" />
         </items>
       </MenuButton>
-      <Label layoutX="25.0" layoutY="95.0" text="Type" />
-      <Button layoutX="186.0" layoutY="128.0" mnemonicParsing="false" onAction="#updateEmployeeType" text="Submit" />
-      <TextField fx:id="id" layoutX="99.0" layoutY="52.0" prefWidth="141.0" />
-      <Label layoutX="25.0" layoutY="56.0" text="Employee ID" />
-      <Label layoutX="12.0" layoutY="170.0" text="New Username" />
-      <Button layoutX="188.0" layoutY="203.0" mnemonicParsing="false" onAction="#updateEmployeeUsername" text="Submit" />
-      <Text layoutX="27.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set Employee Data" />
-      <TextField fx:id="newUsername" layoutX="99.0" layoutY="166.0" prefWidth="141.0" />
+      <Label layoutX="18.0" layoutY="105.0" text="Type" />
+      <Button layoutX="179.0" layoutY="138.0" mnemonicParsing="false" onAction="#updateEmployeeType" text="Submit" />
+      <TextField fx:id="id" layoutX="92.0" layoutY="62.0" prefWidth="141.0" />
+      <Label layoutX="18.0" layoutY="66.0" text="Employee ID" />
+      <Label layoutX="5.0" layoutY="180.0" text="New Username" />
+      <Button layoutX="181.0" layoutY="213.0" mnemonicParsing="false" onAction="#updateEmployeeUsername" text="Submit" />
+      <Text layoutX="20.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set Employee Data" />
+      <TextField fx:id="newUsername" layoutX="92.0" layoutY="176.0" prefWidth="141.0" />
       <MenuButton fx:id="newEmployeeType" layoutX="415.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
          <items>
             <MenuItem mnemonicParsing="false" text="Seller" />
@@ -46,7 +46,7 @@
       <TextField fx:id="newEmployeeNumber" layoutX="416.0" layoutY="240.0" prefWidth="141.0" />
       <Label layoutX="337.0" layoutY="244.0" text="Number" />
       <Button layoutX="502.0" layoutY="277.0" mnemonicParsing="false" onAction="#addEmployee" text="Submit" />
-      <Button layoutX="255.0" layoutY="51.0" mnemonicParsing="false" onAction="#searchEmployee" text="Search" />
-      <Button layoutX="101.0" layoutY="203.0" mnemonicParsing="false" onAction="#deleteEmployee" style="-fx-background-color: #fc6d62;" text="Delete" />
+      <Button layoutX="248.0" layoutY="61.0" mnemonicParsing="false" onAction="#searchEmployee" text="Search" />
+      <Button layoutX="94.0" layoutY="213.0" mnemonicParsing="false" onAction="#deleteEmployee" style="-fx-background-color: #fc6d62;" text="Delete" />
    </children>
 </AnchorPane>

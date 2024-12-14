@@ -21,21 +21,18 @@ public class Admin extends Person {
     public Admin() {
     }
 
-    public Admin(String username, String email, String password, String address, int number, boolean addToFile) {
+    public Admin(String username, String email, String password, String address, int number) {
         super(username, email, password, address, number);
-        if (addToFile) {
-            counter.increment();
-        }
+        counter.increment();
         setId("Admin_" + counter.getValue());
 
-        if(addToFile){
         File file = FileHandler.createFile(FilePaths.adminPath);
         FileHandler.writeToFile(file,
-                getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);}
+                getId() + "," + username + "," + email + "," + password + "," + address + "," + number, true);
 
     }
 
-    public String[] login(String email, String password) throws Exception{
+    public String[] login(String email, String password) throws Exception {
         String[] admins = FileHandler.readFile(FilePaths.adminPath);
 
         for (String line : admins) {
