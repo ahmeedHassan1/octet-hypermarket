@@ -14,7 +14,7 @@ public class BaseController {
     public Parent root;
 
     public void logout(ActionEvent event) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        root = new FXMLLoader(getClass().getResource("login.fxml")).load();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
