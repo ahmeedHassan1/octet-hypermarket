@@ -1,6 +1,8 @@
 package com.mycompany.hypermarket;
 
 import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -8,7 +10,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
-public class AdminController {
+public class AdminController extends BaseController {
 
     private Admin admin;
     @FXML
@@ -241,5 +243,11 @@ public class AdminController {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    @Override
+    public void logout(ActionEvent event) throws Exception {
+        super.logout(event);
+        admin = null;
     }
 }

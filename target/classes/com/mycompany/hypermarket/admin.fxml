@@ -11,42 +11,43 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hypermarket.AdminController">
    <children>
       <Button fx:id="listEmployees" layoutX="22.0" layoutY="415.0" mnemonicParsing="false" onAction="#listAllEmployees" text="List all employees" />
-      <MenuButton fx:id="type" layoutX="92.0" layoutY="101.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
+      <MenuButton fx:id="type" layoutX="101.0" layoutY="194.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
         <items>
           <MenuItem mnemonicParsing="false" text="Seller" />
           <MenuItem mnemonicParsing="false" text="MarketingEmployee" />
             <MenuItem mnemonicParsing="false" text="InventoryEmployee" />
         </items>
       </MenuButton>
-      <Label layoutX="18.0" layoutY="105.0" text="Type" />
-      <Button layoutX="179.0" layoutY="138.0" mnemonicParsing="false" onAction="#updateEmployeeType" text="Submit" />
-      <TextField fx:id="id" layoutX="92.0" layoutY="62.0" prefWidth="141.0" />
-      <Label layoutX="18.0" layoutY="66.0" text="Employee ID" />
-      <Label layoutX="5.0" layoutY="180.0" text="New Username" />
-      <Button layoutX="181.0" layoutY="213.0" mnemonicParsing="false" onAction="#updateEmployeeUsername" text="Submit" />
-      <Text layoutX="20.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set Employee Data" />
-      <TextField fx:id="newUsername" layoutX="92.0" layoutY="176.0" prefWidth="141.0" />
-      <MenuButton fx:id="newEmployeeType" layoutX="415.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
+      <Label layoutX="27.0" layoutY="198.0" text="Type" />
+      <Button layoutX="188.0" layoutY="231.0" mnemonicParsing="false" onAction="#updateEmployeeType" text="Submit" />
+      <TextField fx:id="id" layoutX="101.0" layoutY="155.0" prefWidth="141.0" />
+      <Label layoutX="27.0" layoutY="159.0" text="Employee ID" />
+      <Label layoutX="14.0" layoutY="273.0" text="New Username" />
+      <Button layoutX="190.0" layoutY="306.0" mnemonicParsing="false" onAction="#updateEmployeeUsername" text="Submit" />
+      <Text layoutX="29.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set Employee Data" />
+      <TextField fx:id="newUsername" layoutX="101.0" layoutY="269.0" prefWidth="141.0" />
+      <MenuButton fx:id="newEmployeeType" layoutX="414.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Role">
          <items>
             <MenuItem mnemonicParsing="false" text="Seller" />
             <MenuItem mnemonicParsing="false" text="MarketingEmployee" />
             <MenuItem mnemonicParsing="false" text="InventoryEmployee" />
          </items>
       </MenuButton>
-      <Label layoutX="336.0" layoutY="98.0" text="Type" />
-      <TextField fx:id="newEmployeeUsername" layoutX="415.0" layoutY="59.0" prefWidth="141.0" />
-      <Label layoutX="336.0" layoutY="63.0" text="Username" />
-      <Text layoutX="338.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Employee" />
-      <TextField fx:id="newEmployeeEmail" layoutX="415.0" layoutY="128.0" prefWidth="141.0" />
-      <Label layoutX="338.0" layoutY="132.0" text="Email" />
-      <TextField fx:id="newEmployeePassword" layoutX="415.0" layoutY="166.0" prefWidth="141.0" />
-      <Label layoutX="336.0" layoutY="170.0" text="Password" />
-      <TextField fx:id="newEmployeeAddress" layoutX="415.0" layoutY="203.0" prefWidth="141.0" />
-      <Label layoutX="336.0" layoutY="207.0" text="Address" />
-      <TextField fx:id="newEmployeeNumber" layoutX="416.0" layoutY="240.0" prefWidth="141.0" />
-      <Label layoutX="337.0" layoutY="244.0" text="Number" />
-      <Button layoutX="502.0" layoutY="277.0" mnemonicParsing="false" onAction="#addEmployee" text="Submit" />
-      <Button layoutX="248.0" layoutY="61.0" mnemonicParsing="false" onAction="#searchEmployee" text="Search" />
-      <Button layoutX="94.0" layoutY="213.0" mnemonicParsing="false" onAction="#deleteEmployee" style="-fx-background-color: #fc6d62;" text="Delete" />
+      <Label layoutX="335.0" layoutY="175.0" text="Type" />
+      <TextField fx:id="newEmployeeUsername" layoutX="414.0" layoutY="136.0" prefWidth="141.0" />
+      <Label layoutX="335.0" layoutY="140.0" text="Username" />
+      <Text layoutX="337.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Employee" />
+      <TextField fx:id="newEmployeeEmail" layoutX="414.0" layoutY="205.0" prefWidth="141.0" />
+      <Label layoutX="337.0" layoutY="209.0" text="Email" />
+      <TextField fx:id="newEmployeePassword" layoutX="414.0" layoutY="243.0" prefWidth="141.0" />
+      <Label layoutX="335.0" layoutY="247.0" text="Password" />
+      <TextField fx:id="newEmployeeAddress" layoutX="414.0" layoutY="280.0" prefWidth="141.0" />
+      <Label layoutX="335.0" layoutY="284.0" text="Address" />
+      <TextField fx:id="newEmployeeNumber" layoutX="415.0" layoutY="317.0" prefWidth="141.0" />
+      <Label layoutX="336.0" layoutY="321.0" text="Number" />
+      <Button layoutX="501.0" layoutY="354.0" mnemonicParsing="false" onAction="#addEmployee" text="Submit" />
+      <Button layoutX="257.0" layoutY="154.0" mnemonicParsing="false" onAction="#searchEmployee" text="Search" />
+      <Button layoutX="103.0" layoutY="306.0" mnemonicParsing="false" onAction="#deleteEmployee" style="-fx-background-color: #fc6d62;" text="Delete" />
+      <Button fx:id="listEmployees1" layoutX="529.0" layoutY="18.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
    </children>
 </AnchorPane>
